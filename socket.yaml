@@ -16,7 +16,19 @@ config:
       synq_api_key:
         type: string
         description: A Synq API project key
-
+      syncano_instance_name:
+        type: string
+        description: A Syncano instance name where Socket will be installed
+      synq_api_link:
+        type: string
+        description: A Synq link to api ( ex. http://api.staging.synq.fm/v1/ )
+      synq_link:
+        type: string
+        description: A Synq link to embed site ( ex. http://staging.synq.fm/ )
+      video_storage:
+        type: string
+        description: A Syncano class name, where video objects will be hold
+      
 channels:
   video_status:
     description: "Used to handle current video status"
@@ -45,8 +57,6 @@ classes:
         filter: true
       extension:
         type: string
-      synq_create:
-        type: object
       synq_video_id:
         type: string
         filter: true
@@ -60,10 +70,14 @@ classes:
         order: true
 
 triggers:
-  handle_video_upload:
-    signal: synq_create
+  handle_video_change:
+    signal: update
     class: video_storage
     script: upload
+  handle_video_create:
+    signal: create
+    class: video_storage
+    script: create
 
 endpoints:
   webhook:
@@ -98,20 +112,54 @@ endpoints:
             description: "Unsuccesful webhook"
             example: >
               {status: 404, message: "Not Found"}
-  upload:
+  create:
     POST:
-      script: upload
-      description: Used to synchronize currently Syncano uploaded video to Synq
+      script: create
+      description: Used to create object inside Synq, based on Syncano object
       
       parameters:
         id:
           type: integer
           description: Id of Syncano object containing the video
           example: "231"
-        video_url:
+        video:
+          type: file
+          description: Video file that was uploaded to Syncano
+          example: "http://google.com/simple_file.mp4"
+
+      response:
+        mimetype: application/json
+        examples:
+          - exit_code: 200
+            description: "Successful create"
+            example: >
+              [
+                {
+                    "success": true
+                }
+              ]
+          - exit_code: 404
+            description: "Unsuccesful create"
+            example: >
+              {status: 404, message: "Not Found"}
+  upload:
+    POST:
+      script: upload
+      description: Used to upload video from Syncano to Sync
+      
+      parameters:
+        id:
+          type: integer
+          description: Id of Syncano object containing the video
+          example: "231"
+        video:
           type: file
           description: Video file that will be uploaded to Synq
           example: "http://google.com/simple_file.mp4"
+        synq_video_id:
+          type: string
+          description: Id of Synq object where video will be uploaded
+          example: "eb82b8d8580d4634ba150823ff476d50"
 
       response:
         mimetype: application/json
@@ -126,6 +174,26 @@ endpoints:
               ]
           - exit_code: 404
             description: "Unsuccesful upload"
+            example: >
+              {status: 404, message: "Not Found"}
+  stream:
+    POST:
+      script: stream
+      description: Used to create object inside Synq, used as stream destination
+      
+      response:
+        mimetype: application/json
+        examples:
+          - exit_code: 200
+            description: "Successful stream"
+            example: >
+              [
+                {
+                    "success": true
+                }
+              ]
+          - exit_code: 404
+            description: "Unsuccesful stream"
             example: >
               {status: 404, message: "Not Found"}
   delete:
@@ -155,49 +223,6 @@ endpoints:
             example: >
               {status: 404, message: "Not Found"}
 
-  details:
-    POST:
-      script: details
-      description: Used to get video details from Syncano
-      
-      parameters:
-        id:
-          type: integer
-          description: Id of Syncano object containing the video
-          example: "231"
-        video_id:
-          type: string
-          description: Id of Synq video
-          example: "09ecc6a23094d67bd11c2a7543872fb"
-
-      response:
-        mimetype: application/json
-        examples:
-          - exit_code: 200
-            description: "Successful details"
-            example: >
-              [
-                {
-                    "video_id": "09ecc6a23094d67bd11c2a7543872fb",
-                    "size": 770092,
-                    "meta": "audio/wav",
-                    "extension": "webm",
-                    "userdata":{},
-                    "embed_url":"https://www.synq.fm/embed/09ec66a47f094d67bd11c2a7043872fb",
-                    "views":"0",
-                    "created_at":"2016-09-22T12:27:36.922Z",
-                    "updated_at":"2016-09-22T12:27:36.922Z",
-                    "thumbnail_url":"https://dcuu5ylopkzzf.cloudfront.net/projects/aa/a6/aaa622ac66d6481e8ce79923aaa5bad7/derivatives/videos/09/ec/09ec66a47f094d67bd11c2a7043872fb/webm_720/09ec66a47f094d67bd11c2a7043872fb_webm_720_00001.jpg",
-                    "duration":null,
-                    "beginning":null,
-                    "video_state":"video_upload"
-                }
-              ]
-          - exit_code: 404
-            description: "Unsuccesful details"
-            example: >
-              {status: 404, message: "Not Found"}
-
 dependencies:
   scripts:
     webhook:
@@ -211,4 +236,7 @@ dependencies:
       file: scripts/delete.py
     details:
       runtime_name: python_library_v5.0
-      file: scripts/details.py
+      file: scripts/create.py
+    details:
+      runtime_name: python_library_v5.0
+      file: scripts/stream.py

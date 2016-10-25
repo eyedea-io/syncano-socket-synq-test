@@ -1,14 +1,15 @@
 import requests
-import os
 import syncano
 from syncano.models import Object
 
-SYNC_UPLOAD_URL = CONFIG["SYNQ_API_LINK"] + 'video/upload'
+SYNC_CREATE_URL = CONFIG["SYNQ_API_LINK"] + 'video/create'
 
 connection = syncano.connect(
     api_key=CONFIG['SYNCANO_API_KEY'],
     user_key=CONFIG['SYNCANO_USER_TOKEN'],
     instance_name=CONFIG['SYNCANO_INSTANCE_NAME'])
+
+print ARGS
 
 def download_file(url):
     local_filename = url.split('/')[-1]
@@ -17,12 +18,23 @@ def download_file(url):
         for chunk in r.iter_content(chunk_size=1024): 
             if chunk:
                 f.write(chunk)
-    local_size = os.path.getsize(local_filename)
-    return (local_filename, local_size)
+    return local_filename
 
-video_file = ''
+r = requests.post(SYNC_CREATE_URL, data = {
+    'api_key': CONFIG['SYNQ_API_KEY']
+    })
 
-if ARGS['synq_state'] == 'created' and ARGS['synq_upload'] is None:
+synq_response_json = r.json()
+print synq_response_json
+Object.please.update(
+    id=ARGS['id'],
+    synq_state="created",
+    embed_url=CONFIG["SYNQ_LINK"]+'embed/'+synq_response_json['video_id'],
+    synq_video_id=synq_response_json['video_id'],
+    class_name='video_storage'
+)
+
+if ARGS['video']['value'] is not None:
     upload_res = requests.post(SYNC_UPLOAD_URL,data = {
         'api_key':CONFIG['SYNQ_API_KEY'],
         'video_id': ARGS['synq_video_id']
@@ -41,6 +53,7 @@ if ARGS['synq_state'] == 'created' and ARGS['synq_upload'] is None:
         size=video_size,
         extension=ARGS['video']['value'].split('/')[-1]
     )
+    
     
     fh = open(video_file, 'rb')
     
