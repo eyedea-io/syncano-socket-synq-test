@@ -1,6 +1,6 @@
-name: synq
+name: synq_socket
 version: 0.1
-description: Socket used to enable video synchronization between Synq and Syncano services
+description: "Socket used to enable video synchronization between Synq and Syncano services"
 author:
   name: Eyedea AS
   email: hello@eyedea.io
@@ -9,25 +9,25 @@ config:
    prompt:
       syncano_api_key: 
         type: string
-        description: A Syncano instance key
+        description: "A Syncano instance key"
       syncano_user_key:
         type: string
-        description: A Syncano user key
+        description: "A Syncano user key"
       synq_api_key:
         type: string
-        description: A Synq API project key
+        description: "A Synq API project key"
       syncano_instance_name:
         type: string
-        description: A Syncano instance name where Socket will be installed
+        description: "A Syncano instance name where Socket will be installed"
       synq_api_link:
         type: string
-        description: A Synq link to api ( ex. http://api.staging.synq.fm/v1/ )
+        description: "A Synq link to api ( ex. http://api.staging.synq.fm/v1/ )"
       synq_link:
         type: string
-        description: A Synq link to embed site ( ex. http://staging.synq.fm/ )
+        description: "A Synq link to embed site ( ex. http://staging.synq.fm/ )"
       video_storage:
         type: string
-        description: A Syncano class name, where video objects will be hold
+        description: "A Syncano class name, where video objects will be hold"
       
 channels:
   video_status:
@@ -51,16 +51,16 @@ endpoints:
   webhook:
     POST:
       script: webhook
-      description: Used to get information about current video status from Synq service
+      description: "Used to get information about current video status from Synq service"
       
       parameters:
         video_id:
           type: string
-          description: Id of Synq changed video
+          description: "Id of Synq changed video"
           example: "09ecc6a23094d67bd11c2a7543872fb"
         event:
           type: string
-          description: Current Synq status of video
+          description: "Current Synq status of video"
           example: "upload_video"
 
       response:
@@ -83,16 +83,16 @@ endpoints:
   create:
     POST:
       script: create
-      description: Used to create object inside Synq, based on Syncano object
+      description: "Used to create object inside Synq, based on Syncano object"
       
       parameters:
         id:
           type: integer
-          description: Id of Syncano object containing the video
+          description: "Id of Syncano object containing the video"
           example: "231"
         video:
           type: file
-          description: Video file that was uploaded to Syncano
+          description: "Video file that was uploaded to Syncano"
           example: "http://google.com/simple_file.mp4"
 
       response:
@@ -113,20 +113,20 @@ endpoints:
   upload:
     POST:
       script: upload
-      description: Used to upload video from Syncano to Sync
+      description: "Used to upload video from Syncano to Sync"
       
       parameters:
         id:
           type: integer
-          description: Id of Syncano object containing the video
+          description: "Id of Syncano object containing the video"
           example: "231"
         video:
           type: file
-          description: Video file that will be uploaded to Synq
+          description: "Video file that will be uploaded to Synq"
           example: "http://google.com/simple_file.mp4"
         synq_video_id:
           type: string
-          description: Id of Synq object where video will be uploaded
+          description: "Id of Synq object where video will be uploaded"
           example: "eb82b8d8580d4634ba150823ff476d50"
 
       response:
@@ -147,7 +147,7 @@ endpoints:
   stream:
     POST:
       script: stream
-      description: Used to create object inside Synq, used as stream destination
+      description: "Used to create object inside Synq, used as stream destination"
       
       response:
         mimetype: application/json
@@ -167,12 +167,12 @@ endpoints:
   delete:
     POST:
       script: delete
-      description: Used to delete video from Syncano and Synq services
+      description: "Used to delete video from Syncano and Synq services"
       
       parameters:
         id:
           type: integer
-          description: Id of Syncano object containing the video
+          description: "Id of Syncano object containing the video"
           example: "231"
 
       response:
