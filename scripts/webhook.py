@@ -12,7 +12,10 @@ connection = syncano.connect(
 
 data = ARGS
 
-synq_file_details = json.loads(META["request"]["HTTP_VIDEO_INPUT"])
+if 'HTTP_VIDEO_INPUT' in META['request']:
+    synq_file_details = json.loads(META["request"]["HTTP_VIDEO_INPUT"])
+else:
+    synq_file_details = {}
 
 list_of_objects = Object.please.list(
     class_name=CONFIG["VIDEO_STORAGE"]).filter(synq_video_id=META["request"]["HTTP_VIDEO_ID"])
