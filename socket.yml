@@ -7,7 +7,7 @@ author:
 
 config:
    prompt:
-      syncano_api_key: 
+      syncano_api_key:
         type: string
         description: "A Syncano instance key"
       syncano_user_key:
@@ -28,12 +28,12 @@ config:
       video_storage:
         type: string
         description: "A Syncano class name, where video objects will be hold"
-      
+
 channels:
   video_status:
     description: "Used to handle current video status"
     type: default
-    permissions: 
+    permissions:
       group: publish
       other: none
 
@@ -52,7 +52,7 @@ endpoints:
     POST:
       script: webhook
       description: "Used to get information about current video status from Synq service"
-      
+
       parameters:
         video_id:
           type: string
@@ -84,7 +84,7 @@ endpoints:
     POST:
       script: create
       description: "Used to create object inside Synq, based on Syncano object"
-      
+
       parameters:
         id:
           type: integer
@@ -114,7 +114,7 @@ endpoints:
     POST:
       script: upload
       description: "Used to upload video from Syncano to Sync"
-      
+
       parameters:
         id:
           type: integer
@@ -144,11 +144,45 @@ endpoints:
             description: "Unsuccesful upload"
             example: >
               {status: 404, message: "Not Found"}
+
+  uploader:
+    POST:
+      script: uploader
+      description: "Used to generate Synq widget based on Syncano data object"
+
+      parameters:
+        id:
+          type: integer
+          description: "Id of Syncano object containing the video"
+          example: "231"
+
+      response:
+        mimetype: application/json
+        examples:
+          - exit_code: 200
+            description: "Success widget creation"
+            example: >
+              [
+                {
+                    "status": 200,
+                    "message": "https://www.synq.fm/uplader/430ae5110e5c4319975d78487086082c?token=692996dd57684aa484bdf0a81dbb1ec2"
+                }
+              ]
+          - exit_code: 404
+            description: "Unsuccesful widget creation"
+            example: >
+              [
+                {
+                    "status": 404,
+                    "message": "Syncano object 'id' cannot be found in request"
+                }
+              ]
+
   stream:
     POST:
       script: stream
       description: "Used to create object inside Synq, used as stream destination"
-      
+
       response:
         mimetype: application/json
         examples:
@@ -168,7 +202,7 @@ endpoints:
     POST:
       script: delete
       description: "Used to delete video from Syncano and Synq services"
-      
+
       parameters:
         id:
           type: integer
@@ -198,6 +232,9 @@ dependencies:
     upload:
       runtime_name: python_library_v5.0
       file: scripts/upload.py
+    uploader:
+      runtime_name: python_library_v5.0
+      file: scripts/uploader.py
     delete:
       runtime_name: python_library_v5.0
       file: scripts/delete.py
