@@ -8,7 +8,7 @@ connection = syncano.connect(
     user_key=CONFIG['SYNCANO_USER_TOKEN'],
     instance_name=CONFIG['SYNCANO_INSTANCE_NAME'])
 
-SYNC_DELETE_URL = CONFIG["SYNQ_API_LINK"] + 'video/delete'
+SYNC_DELETE_URL = CONFIG['SYNQ_API_LINK'] + 'video/delete'
 
 def removeFromSynq(video_id):
     return requests.post(SYNC_DELETE_URL, data = {

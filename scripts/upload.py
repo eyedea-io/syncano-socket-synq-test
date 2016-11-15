@@ -3,7 +3,7 @@ import os
 import syncano
 from syncano.models import Object
 
-SYNC_UPLOAD_URL = CONFIG["SYNQ_API_LINK"] + 'video/upload'
+SYNC_UPLOAD_URL = CONFIG['SYNQ_API_LINK'] + 'video/upload'
 
 connection = syncano.connect(
     api_key=CONFIG['SYNCANO_API_KEY'],
