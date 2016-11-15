@@ -256,10 +256,14 @@ dependencies:
           type: string
           filter_index: true
           order_index: true
-        - name: size
+        - name: duration
           type: float
-          filter_index: true
-          order_index: true
+        - name: height
+          type: integer
+        - name: synq_widget
+          type: string
+        - name: width
+          type: integer
         - name: meta
           type: string
           filter_index: true
