@@ -1,0 +1,13 @@
+# dependencies
+node_modules
+
+# build
+**/.bundles
+**/.dist
+build
+
+# other
+.envrc
+.DS_Store
+npm-debug.log
+*.sublime-*
