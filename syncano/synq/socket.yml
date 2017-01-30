@@ -1,0 +1,35 @@
+name: synq
+description: Integration Synq.fm with Syncano.io
+
+classes:
+  video_storage:
+    - name: video
+      type: string
+    - name: filename
+      type: string
+      filter_index: true
+      order_index: true
+    - name: duration
+      type: float
+    - name: height
+      type: integer
+    - name: synq_widget
+      type: string
+    - name: width
+      type: integer
+    - name: meta
+      type: string
+      filter_index: true
+    - name: extension
+      type: string
+    - name: synq_video_id
+      type: string
+      filter_index: true
+    - name: synq_upload
+      type: object
+    - name: embeded_url
+      type: text
+    - name: synq_state
+      type: string
+      filter_index: true
+      order_index: true
