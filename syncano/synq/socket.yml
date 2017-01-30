@@ -1,6 +1,10 @@
 name: synq
 description: Integration Synq.fm with Syncano.io
 
+config:
+  secret_key:
+    SYNQ_API_KEY: <test_key>
+
 classes:
   video_storage:
     - name: video
@@ -33,3 +37,27 @@ classes:
       type: string
       filter_index: true
       order_index: true
+
+endpoints:
+  create:
+    description: Create Synq vido object and save data in Syncano
+    file: scripts/create.js
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "data": {
+                "id": 1234,
+                "video_id": "4e063ab632f24992aced5c6f8983229f",
+                "state": "created"
+              }
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {}
