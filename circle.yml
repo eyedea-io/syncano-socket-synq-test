@@ -1,0 +1,46 @@
+machine:
+  node:
+    version: 7
+  environment:
+    YARN_VERSION: 0.17.10
+    PATH: "${PATH}:${HOME}/.yarn/bin"
+
+general:
+  artifacts:
+    - "coverage/"
+    - "reports/"
+
+dependencies:
+  pre:
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        echo "Download and install Yarn."
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      else
+        echo "The correct version of Yarn is already installed."
+      fi
+  override:
+    - yarn install
+    - yarn global add syncano-cli@beta
+  cache_directories:
+    - ~/.yarn
+    - ~/.yarn-cache
+
+deployment:
+  staging:
+    branch: devel
+    commands:
+      - yarn build
+      - syncano-cli sync
+
+test:
+  override:
+    - yarn test:
+        timeout: 400
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+        - devel
