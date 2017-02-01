@@ -2,8 +2,8 @@ name: synq
 description: Integration Synq.fm with Syncano.io
 
 config:
-  secret_key:
-    SYNQ_API_KEY: <test_key>
+  SYNQ_API_KEY:
+    value: <your synq api key>
 
 classes:
   video_storage:
