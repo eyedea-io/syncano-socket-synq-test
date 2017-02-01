@@ -7,7 +7,6 @@ const cn = require('classnames/bind').bind(styles);
 const VideoPlayer = ({
   videoSrc, videoBlob, width, height
   }) => {
-  console.log('ts');
   return (
     <div>
       <div

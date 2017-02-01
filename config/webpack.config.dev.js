@@ -27,6 +27,9 @@ module.exports = {
     chunkFilename: '[name].chunk.js',
     publicPath: ''
   },
+  node: {
+    fs: 'empty'
+  },
   resolve: {
     modules: [
       paths.appSrc,

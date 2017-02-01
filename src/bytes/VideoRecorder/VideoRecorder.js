@@ -38,8 +38,8 @@ const VideoRecorder = ({
   const onStop = () => {
     window.recorder.stopRecording(videoURL => {
       console.log(videoURL);
-      const recordedBlob = window.recorder.getBlob();
-      setVideoBlob(window.URL.createObjectURL(recordedBlob));
+      // const recordedBlob = window.recorder.getBlob();
+      setVideoBlob(videoURL);
       window.recorder.getDataURL(dataURL => {
         return dataURL;
       });
