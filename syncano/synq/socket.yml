@@ -7,8 +7,6 @@ config:
 
 classes:
   video_storage:
-    - name: video
-      type: string
     - name: filename
       type: string
       filter_index: true
@@ -39,6 +37,13 @@ classes:
       order_index: true
 
 endpoints:
+  subscribe_channel:
+    channel: default
+
+  webhook:
+    description: Used to get notify when video upload is complete
+    file: scripts/webhook.js
+
   create:
     description: Create Synq vido object and save data in Syncano
     file: scripts/create.js
@@ -50,11 +55,15 @@ endpoints:
           description: Success
           example: |
             {
-              "data": {
-                "id": 1234,
-                "video_id": "4e063ab632f24992aced5c6f8983229f",
-                "state": "created"
-              }
+              "form": {
+                "AWSAccessKeyId": "KIAIP77Y7MMX3ITZM,
+                "Content-Type": "4e063ab632f24992aced5c6f8983229f",
+                "Policy": "eyJjb25kaXRpb25zIjogW3siYnVja2V0IjogInN5bnFmbSJ9LCB7ImFjbCI6ICJwdWJsaWMtcmVhZCJ9LCBbInN0YXJ0cy13aXRoIiwgIiRrZXkiLCAicHJvamVjdHMvMWMvZDcvMWNkNzQ5NGI5ZTg3NDFlMjg1MjA1NWU5ODQ4NmJjNDYvdXBsb2Fkcy92aWRlb3MvNDMvMGEvNDMwYWU1MTEwZTVjNDMxOTk3NWQ3ODQ4NzA4NjA4MmMubXA0Il0sIF=",
+                "Signature": "Rwilcb1jl4xrLYbOxsL2,
+                "acl": "public-read,
+                "key": "projects/1c/d7/1cd7494b9e8741e28055e98486bc46/uploads/videos/4e/06/4e063ab632aced5c6f8983229f.mp4"
+              },
+              "url": "https://synqfm.s3.amazonaws.com/"
             }
         -
           exit_code: 400

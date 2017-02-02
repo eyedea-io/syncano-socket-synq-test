@@ -9,14 +9,14 @@ const server = connect({
 const { data } = server
 const createForm = new FormData()
 
-createForm.append('api_key', 'CONFIG.SYNQ_API_KEY')
+createForm.append('api_key', '<synq_api_key>')
 
-fetch('https://api.synq.fm/v1/video/create', {method: 'POST',	body: createForm })
+fetch('https://api.synq.fm/v1/video/create', {method: 'POST', body: createForm })
   .then(res => res.json())
   .then(json => {
     const updateForm = new FormData()
 
-    updateForm.append('api_key', 'CONFIG.SYNQ_API_KEY')
+    updateForm.append('api_key', 'synq_api_key')
     updateForm.append('video_id', json.video_id)
 
     data.video_storage.create({
@@ -27,12 +27,21 @@ fetch('https://api.synq.fm/v1/video/create', {method: 'POST',	body: createForm }
         .then(res => res.json())
         .then(json => {
           data.video_storage.update(syncanoObject.id, {
-            synq_upload: json
-          }).then(setResponse(new HttpResponse(200, JSON.stringify(json), 'application/json')))
+            synq_upload: json,
+          }).then(() => {
+            const synqAWS = {
+              url: json.action,
+              form: {
+                AWSAccessKeyId: json.AWSAccessKeyId,
+                'Content-Type': json['Content-Type'],
+                Policy: json.Policy,
+                Signature: json.Signature,
+                acl: json.acl,
+                key: json.key
+              }
+            }
+            setResponse(new HttpResponse(200, JSON.stringify(synqAWS), 'application/json'))
+          })
         })
     })
   })
-
-
-//TODO Add ARG for file, upload file to SYNQ via Syncano
-
