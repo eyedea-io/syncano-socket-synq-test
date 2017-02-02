@@ -16,4 +16,13 @@ export default class app {
   @action setRecordingState = state => {
     this.store.app.isRecording = state;
   }
+  @action setProcessingState = state => {
+    this.store.app.isProcessing = state;
+  }
+  @action setUploadState = state => {
+    this.store.app.isUploading = state;
+  }
+  @action setPlayState = state => {
+    this.store.app.isPlaying = state;
+  }
 }

@@ -52,6 +52,20 @@
             background-color: #EB5757;
             margin-left: 10px
         }
+        &-recording {
+            position: absolute;
+            top: -430px;
+            right: -520px;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: #EB5757;
+            margin-left: 20px;
+            animation-name: pulse;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
     }
 }
 

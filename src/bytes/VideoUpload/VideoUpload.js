@@ -9,17 +9,20 @@ const cn = require('classnames/bind').bind(styles);
 
 const VideoUpload = ({
   services: {
-  app: { setVideoBlob }}
+  app: { setVideoBlob, setUploadState, setProcessingState }
+}
 }) => {
   // const data = new FormData();
+  const uploadState = setUploadState;
+  const processState = setProcessingState;
   const handleSend = files => {
     const file = files[0];
-    setVideoBlob(file.preview);
     // console.log(fs);
     // console.log(file);
     // data.append('api_key', process.env.SYNQ_API_KEY);
     // data.append('file', file);
     // const url = 'https://api.synq.fm/v1/video/create';
+    setVideoBlob('');
     const url = 'https://brook-throbbing-6163.syncano.link/synq/create/';
     fetch(url, {
       method: 'GET'
@@ -27,25 +30,50 @@ const VideoUpload = ({
       data.json().then(data => {
         const form = new FormData();
         const formObject = data.form;
-        console.log(form, formObject);
         for (const key in formObject) {
           if (Object.prototype.hasOwnProperty.call(formObject, key)) {
             form.append(key, formObject[key]);
           }
         }
-        console.log(file);
         form.append('file', file);
+        uploadState(true);
         fetch(data.url, {
           method: 'POST',
           body: form
         }).then(data => {
-          console.log(data);
+          processState(true);
+          uploadState(false);
+          console.log(data.json(), 'log from post');
+          const url = 'https://resonance-damp-2382.syncano.link/synq/subscribe_channel/';
+          const cancelPoll = setInterval(() => {
+            console.log('FetchRevoked');
+            fetch(url, {
+              method: 'GET'
+            }).then(data => {
+              console.log(data.json());
+              clearInterval(cancelPoll);
+            });
+          }, 10000);
+          // TODO On upload
         });
       });
     }).catch(err => {
       console.error(err);
     });
   };
+  // const handleSnd = () => {
+  //   const url = 'https://resonance-damp-2382.syncano.link/synq/subscribe_channel/';
+  //   fetch(url, {
+  //     headers: {
+  //       'X-USER-KEY': 'ecf10bd5bdca44409126aa2ef57da7705abd568a'
+  //     },
+  //     method: 'GET'
+  //   }).then(data => {
+  //     data.json().then(data => {
+  //       console.log(data);
+  //     });
+  //   });
+  // };
   return (
     <div>
       <div className={cn('VideoUpload')}>
@@ -53,6 +81,7 @@ const VideoUpload = ({
           <div>UPLOAD VIDEO</div>
         </DropZone>
       </div>
+      {/* <button onClick={handleSnd}>SEND</button> */}
     </div>
   );
 };

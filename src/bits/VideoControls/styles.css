@@ -1,0 +1,45 @@
+.VideoControls {
+    progress {
+        appearance: none;
+        border: none !important;
+        height: 20px !important;
+        width: 100%;
+        &>span {
+            width: 0%;
+            height: 100%;
+            display: inline-block;
+            background-color: #0095dd;
+        }
+        &::-webkit-progress-value {
+            background-color: #0095dd;
+        }
+        &::-moz-progress-bar {
+            background-color: #0095dd;
+        }
+        &[data-state="fake"] {
+            background: #e6e6e6;
+            height: 65%;
+        }
+    }
+    width: 100%;
+    z-index: 1000;
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    justify-content: space-between;
+    bottom: 0px;
+    button {
+        border: none;
+    }
+    &-progress {
+        width: 520px;
+        /*display: block;
+        width: 100%;
+        height: 81%;
+        color: #0095dd;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;*/
+    }
+    &-playpause {}
+}
