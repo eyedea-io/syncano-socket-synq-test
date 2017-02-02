@@ -14,6 +14,10 @@ export default {
   },
   @observable videoBlob: '',
   @computed get getVideoBlob() {
-    return this.store.app.videoSrc;
+    return this.store.app.videoBlob;
+  },
+  @observable isRecording: false,
+  @computed get getRecordingState() {
+    return this.store.app.isRecording;
   }
 };

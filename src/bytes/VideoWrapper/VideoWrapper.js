@@ -1,21 +1,29 @@
 /* eslint camelcase: ["error", {properties: "never"}] */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styles from './styles.css';
-import { VideoRecorder } from 'bytes';
+import { VideoRecorder, VideoPlayer } from 'bytes';
 import { connect } from 'utils';
 
 const cn = require('classnames/bind').bind(styles);
 
-const VideoUpload = (
+const VideoWrapper = ({
+  store: {
+    app: {
+      videoSrc, videoBlob
+    }
+  }
+}
 ) => {
   return (
     <div className={cn('VideoWrapper')}>
       <VideoRecorder/>
+      <VideoPlayer videoSrc={videoSrc} videoBlob={videoBlob}/>
     </div>
   );
 };
 
-VideoUpload.propTypes = {
+VideoWrapper.propTypes = {
+  store: PropTypes.object
 };
 
-export default connect(VideoUpload);
+export default connect(VideoWrapper);

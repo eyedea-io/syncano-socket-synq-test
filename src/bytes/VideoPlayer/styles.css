@@ -1,4 +1,15 @@
 .VideoPlayer {
-    min-width: 800px;
-    min-height: 600px;
+    margin-left: 20px;
+    color: #F2F2F2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 650px;
+    min-height: 480px;
+    background: #4F4F4F;
+    video {
+        min-width: 100%;
+        min-height: 480px;
+    }
 }

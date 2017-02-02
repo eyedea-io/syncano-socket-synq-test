@@ -1,28 +1,24 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
-import { Link } from 'bits';
-import { Wrapper } from 'bytes';
+import syncanoLogo from 'bytes/Header/images/syncano.png';
+import synqLogo from 'bytes/Header/images/synq.png';
 
 const cn = require('classnames/bind').bind(styles);
 
 const Header = () => {
-  console.log('');
+  console.log(syncanoLogo);
 
   return (
     <div className={cn('Header')}>
-      <Wrapper className={cn('Header__inner')}>
-        <div className={cn('Header__logo')}>
-          <a href="/" className={cn('Header__logo-link')}>Logo</a>
-        </div>
-
-        <ul className={cn('Header__nav', 'Nav')}>
-          <li className={cn('Nav__item')}>
-            <Link className={cn('Nav__item-link')} to="/">Home</Link>
-          </li>
-          <li className={cn('Nav__item')}/>
-        </ul>
-      </Wrapper>
+      <div className={cn('Header__logo-syncano')}>
+        <a href="https://www.syncano.io/" className={cn('Header__logo-link')}><img src={syncanoLogo}/></a>
+      </div>
+      <div className={cn('Header__logo-plus')}>+</div>
+      <div className={cn('Header__logo-synq')}>
+        <a href="https://www.synq.fm/" className={cn('Header__logo-link')}><img src={synqLogo}/></a>
+      </div>
+      <div className={cn('Header__description')}>WebRTC recorder, player and uploader DEMO</div>
     </div>
   );
 };

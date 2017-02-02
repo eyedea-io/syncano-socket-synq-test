@@ -13,4 +13,7 @@ export default class app {
   @action getVideoSrc = () => {
     return this.store.app.videoSrc;
   }
+  @action setRecordingState = state => {
+    this.store.app.isRecording = state;
+  }
 }

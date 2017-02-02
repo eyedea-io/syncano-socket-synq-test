@@ -2,19 +2,19 @@
 import React, { PropTypes } from 'react';
 import recordRTC from 'recordrtc';
 import styles from './styles.css';
-import { VideoPlayer } from 'bytes';
 import { connect } from 'utils';
+import { VideoUpload } from 'bytes';
 
 const cn = require('classnames/bind').bind(styles);
 
 const VideoRecorder = ({
   store: {
     app: {
-      videoSrc, videoBlob
+      isRecording
     }
   },
   services: {
-    app: { setVideoBlob }
+    app: { setVideoBlob, setRecordingState }
   }
 }) => {
   let constraints;
@@ -37,6 +37,7 @@ const VideoRecorder = ({
   };
   const onStop = () => {
     window.recorder.stopRecording(videoURL => {
+      setRecordingState(false);
       console.log(videoURL);
       // const recordedBlob = window.recorder.getBlob();
       setVideoBlob(videoURL);
@@ -63,6 +64,7 @@ const VideoRecorder = ({
     errorMsg('getUserMedia error: ' + error.name, error);
   };
   const toggleRecorder = () => {
+    setRecordingState(true);
     const constraints = window.constraints = {
       video: true,
       audio: true
@@ -70,18 +72,21 @@ const VideoRecorder = ({
     navigator.mediaDevices.getUserMedia(constraints)
     .then(handleSuccess).catch(handleError);
   };
-  const startRecorder = () => {
-  };
   return (
-    <div>
-      <div className={cn('VideoRecorder')}>
-        <div className={cn('VideoRecorder__toggle', 'mb')}>
-          <VideoPlayer videoSrc={videoSrc} videoBlob={videoBlob} width={videoWidth} height={videoHeight}/>
-          <button onClick={toggleRecorder}>Open</button>
-          <button onClick={startRecorder}>Record</button>
-          <button onClick={onStop}>Stop</button>
-        </div>
-      </div>
+    <div className={cn('VideoRecorder')}>
+      <video
+        autoPlay
+        />
+      {isRecording ?
+        <div className={cn('VideoRecorder__stop')} onClick={onStop}>
+          STOP
+          <div className={cn('VideoRecorder__stop-square')}/>
+        </div> :
+        <div onClick={toggleRecorder} className={cn('VideoRecorder__record')}>
+          START RECORDING
+          <div className={cn('VideoRecorder__record-circle')}/>
+        </div>}
+      <VideoUpload/>
     </div>
   );
 };

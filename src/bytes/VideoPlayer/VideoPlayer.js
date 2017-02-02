@@ -5,35 +5,28 @@ import { connect } from 'utils';
 const cn = require('classnames/bind').bind(styles);
 
 const VideoPlayer = ({
-  videoSrc, videoBlob, width, height
+videoBlob
   }) => {
   return (
-    <div>
-      <div
-        className={cn('VideoPlayer')}
+    <div
+      className={cn('VideoPlayer')}
+      >
+      <video
+        controls
+        autoPlay
+        name="media"
         >
-        <div className={cn('VideoPlayer__toggle', 'mb')}>
-          <video
-            autoPlay
-            src={videoSrc}
-            />
-          <iframe
-            src={videoBlob}
-            allowFullScreen
-            width={width}
-            height={height}
-            />
-        </div>
-      </div>
+        <source
+          src={videoBlob}
+          type="video/webm"
+          />
+      </video>
     </div>
   );
 };
 
 VideoPlayer.propTypes = {
-  videoSrc: PropTypes.object,
-  videoBlob: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number
+  videoBlob: PropTypes.string
 };
 
 export default connect(VideoPlayer);

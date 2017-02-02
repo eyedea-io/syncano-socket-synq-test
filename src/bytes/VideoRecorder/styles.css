@@ -1,1 +1,79 @@
-.VideoUpload {}
+.VideoRecorder {
+    color: #F2F2F2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 650px;
+    min-height: 480px;
+    background: #4F4F4F;
+    margin-right: 20px;
+    video {
+        min-width: 100%;
+    }
+    &__record {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 100%;
+        min-height: 100%;
+        text-align: center;
+        font-size: 36px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        &-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            background-color: #EB5757;
+            margin-left: 20px;
+            animation-name: pulse;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+    }
+    &__stop {
+        width: 120px;
+        height: 50px;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        letter-spacing: 1px;
+        cursor: pointer;
+        background-color: #0070D3;
+        &-square {
+            width: 10px;
+            height: 10px;
+            background-color: #EB5757;
+            margin-left: 10px
+        }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+    75% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

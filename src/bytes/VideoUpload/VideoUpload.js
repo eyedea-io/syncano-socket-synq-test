@@ -1,17 +1,20 @@
 /* eslint camelcase: ["error", {properties: "never"}] */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
 
-// const fs = require('fs');
+const DropZone = require('react-dropzone');
+
 const cn = require('classnames/bind').bind(styles);
 
-const VideoUpload = (
-) => {
+const VideoUpload = ({
+  services: {
+  app: { setVideoBlob }}
+}) => {
   // const data = new FormData();
-  const handleSend = e => {
-    console.log(e);
-    const file = e.target.files[0];
+  const handleSend = files => {
+    const file = files[0];
+    setVideoBlob(file.preview);
     // console.log(fs);
     // console.log(file);
     // data.append('api_key', process.env.SYNQ_API_KEY);
@@ -46,19 +49,16 @@ const VideoUpload = (
   return (
     <div>
       <div className={cn('VideoUpload')}>
-        <div className={cn('VideoUpload__toggle', 'mb')}>
-          <input
-            type="file"
-            onChange={handleSend}
-            />
-          <button onClick={handleSend}>SEND </button>
-        </div>
+        <DropZone onDrop={handleSend} className={cn('VideoUpload__dropzone')}>
+          <div>UPLOAD VIDEO</div>
+        </DropZone>
       </div>
     </div>
   );
 };
 
 VideoUpload.propTypes = {
+  services: PropTypes.object
 };
 
 export default connect(VideoUpload);
