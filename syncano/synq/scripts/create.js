@@ -6,22 +6,35 @@ const server = connect({
   token: META.token,
   instanceName: META.instance,
 })
+const user = META.user || {}
+
+if( !user.hasOwnProperty('id') ){
+  setResponse(new HttpResponse(401, JSON.stringify({message: 'Unauthorized endpoint call'}), 'application/json'))
+  process.exit()
+}
+
 const { data } = server
 const createForm = new FormData()
+const userData = {
+  user_id: user.id,
+  username: user.username
+}
 
-createForm.append('api_key', '<synq_api_key>')
+createForm.append('api_key', '<synq_api>')
+createForm.append('userdata', JSON.stringify(userData))
 
 fetch('https://api.synq.fm/v1/video/create', {method: 'POST', body: createForm })
   .then(res => res.json())
   .then(json => {
     const updateForm = new FormData()
 
-    updateForm.append('api_key', 'synq_api_key')
+    updateForm.append('api_key', '<synq_api>')
     updateForm.append('video_id', json.video_id)
 
     data.video_storage.create({
       synq_state: json.state,
-      synq_video_id: json.video_id
+      synq_video_id: json.video_id,
+      user: user.id
     }).then(syncanoObject => {
       fetch('https://api.synq.fm/v1/video/upload', {method: 'POST', body: updateForm })
         .then(res => res.json())

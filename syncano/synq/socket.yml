@@ -35,6 +35,10 @@ classes:
       type: string
       filter_index: true
       order_index: true
+    - name: user
+      type: reference
+      target: user
+      filter_index: true
 
 endpoints:
   subscribe_channel:
