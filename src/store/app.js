@@ -31,5 +31,13 @@ export default {
   @observable isPlaying: false,
   @computed get getPlayState() {
     return this.store.app.isPlaying;
+  },
+  @observable videoUrl: '',
+  @computed get getVideoUrl() {
+    return this.store.app.videoUrl;
+  },
+  @observable status: '',
+  @computed get getStatusState() {
+    return this.store.app.status;
   }
 };

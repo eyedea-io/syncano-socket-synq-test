@@ -25,4 +25,10 @@ export default class app {
   @action setPlayState = state => {
     this.store.app.isPlaying = state;
   }
+  @action setStatus = state => {
+    this.store.app.status = state;
+  }
+  @action setVideoUrl = state => {
+    this.store.app.videoUrl = state;
+  }
 }

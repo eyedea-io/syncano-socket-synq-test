@@ -9,71 +9,54 @@ const cn = require('classnames/bind').bind(styles);
 
 const VideoUpload = ({
   services: {
-  app: { setVideoBlob, setUploadState, setProcessingState }
+  app: { setVideoBlob, setUploadState, setProcessingState, setStatus, setVideoUrl }
 }
 }) => {
-  // const data = new FormData();
   const uploadState = setUploadState;
   const processState = setProcessingState;
   const handleSend = files => {
-    const file = files[0];
-    // console.log(fs);
-    // console.log(file);
-    // data.append('api_key', process.env.SYNQ_API_KEY);
-    // data.append('file', file);
-    // const url = 'https://api.synq.fm/v1/video/create';
+    uploadState(true);
+    processState(false);
     setVideoBlob('');
-    const url = 'https://brook-throbbing-6163.syncano.link/synq/create/';
+    setStatus('');
+    setVideoUrl('');
+    const file = files[0];
+    const url = 'https://resonance-damp-2382.syncano.link/synq/create/';
     fetch(url, {
       method: 'GET'
     }).then(data => {
-      data.json().then(data => {
-        const form = new FormData();
-        const formObject = data.form;
-        for (const key in formObject) {
-          if (Object.prototype.hasOwnProperty.call(formObject, key)) {
-            form.append(key, formObject[key]);
+      data.json()
+        .then(data => {
+          console.log(data, 'after create');
+          const form = new FormData();
+          const formObject = data.form;
+          for (const key in formObject) {
+            if (Object.prototype.hasOwnProperty.call(formObject, key)) {
+              form.append(key, formObject[key]);
+            }
           }
-        }
-        form.append('file', file);
-        uploadState(true);
-        fetch(data.url, {
-          method: 'POST',
-          body: form
-        }).then(data => {
-          processState(true);
+          form.append('file', file);
           uploadState(false);
-          console.log(data.json(), 'log from post');
-          const url = 'https://resonance-damp-2382.syncano.link/synq/subscribe_channel/';
-          const cancelPoll = setInterval(() => {
-            console.log('FetchRevoked');
-            fetch(url, {
-              method: 'GET'
-            }).then(data => {
-              console.log(data.json());
-              clearInterval(cancelPoll);
-            });
-          }, 10000);
-          // TODO On upload
+          processState(true);
+          fetch(data.url, {
+            method: 'POST',
+            body: form
+          }).then(() => {
+            fetch('https://resonance-damp-2382.syncano.link/synq/subscribe_channel/')
+              .then(res => res.json())
+                .then(json => {
+                  processState(false);
+                  console.log(json.payload.message);
+                  setStatus('Completed!');
+                  setVideoUrl(json.payload.message);
+                  setVideoBlob(json.payload.message);
+                });
+          });
         });
-      });
     }).catch(err => {
       console.error(err);
     });
   };
-  // const handleSnd = () => {
-  //   const url = 'https://resonance-damp-2382.syncano.link/synq/subscribe_channel/';
-  //   fetch(url, {
-  //     headers: {
-  //       'X-USER-KEY': 'ecf10bd5bdca44409126aa2ef57da7705abd568a'
-  //     },
-  //     method: 'GET'
-  //   }).then(data => {
-  //     data.json().then(data => {
-  //       console.log(data);
-  //     });
-  //   });
-  // };
   return (
     <div>
       <div className={cn('VideoUpload')}>

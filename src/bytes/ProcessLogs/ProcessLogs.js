@@ -2,14 +2,13 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
 import { Spinner } from 'bits';
-import { UrlContainer } from 'bytes';
 
 const cn = require('classnames/bind').bind(styles);
 
-const VideoPlayer = ({
+const ProcessLogs = ({
 videoBlob,
   store: {
-    app: { isProcessing, isUploading, status, videoUrl }
+    app: { isProcessing, isUploading, status }
   },
   services: {
     app: { setVideoBlob }
@@ -20,9 +19,9 @@ videoBlob,
   };
   return (
     <div
-      className={cn('VideoPlayer')}
+      className={cn('ProcessLogs')}
       >
-      <div className={cn('VideoPlayer__clear', 'material-icons')} onClick={handleClear}>
+      <div className={cn('ProcessLogs__clear', 'material-icons')} onClick={handleClear}>
         clear
       </div>
       <video
@@ -37,8 +36,6 @@ videoBlob,
           />
       </video>
       {console.log(isUploading, isProcessing)}
-      {/* <ProcessLogs upload={hasFinished} process={hasProcessed} finished={isFinished}/> */}
-      {videoUrl.length ? <UrlContainer videoUrl={videoUrl}/> : null}
       {status.length ? <Spinner message={status}/> : null}
       {isUploading ? <Spinner message={'Uploading Video...'}/> : null}
       {isProcessing ? <Spinner message={'Processing Video...'}/> : null}
@@ -46,10 +43,10 @@ videoBlob,
   );
 };
 
-VideoPlayer.propTypes = {
+ProcessLogs.propTypes = {
   store: PropTypes.object,
   services: PropTypes.object,
   videoBlob: PropTypes.string
 };
 
-export default connect(VideoPlayer);
+export default connect(ProcessLogs);
