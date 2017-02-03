@@ -42,7 +42,7 @@ classes:
 
 endpoints:
   subscribe_channel:
-    channel: default
+    channel: default.{user}
 
   webhook:
     description: Used to get notify when video upload is complete

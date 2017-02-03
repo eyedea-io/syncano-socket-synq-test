@@ -14,7 +14,7 @@ const channelMessage = {
   "payload": {
     "message": postData.video_url
   },
-  "room": "default"
+  "room": `default.${postData.username}`
 }
 
 const url = `https://api.syncano.rocks/v2/instances/${META.instance}/channels/default/publish/`
