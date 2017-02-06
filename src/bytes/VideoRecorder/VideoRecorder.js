@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import recordRTC from 'recordrtc';
 import styles from './styles.css';
 import { connect } from 'utils';
-import { VideoUpload } from 'bytes';
+import { VideoUpload, ProcessLogs } from 'bytes';
 
 const cn = require('classnames/bind').bind(styles);
 
@@ -88,6 +88,7 @@ const VideoRecorder = ({
           <div className={cn('VideoRecorder__record-circle')}/>
         </div>}
       <VideoUpload/>
+      <ProcessLogs/>
     </div>
   );
 };

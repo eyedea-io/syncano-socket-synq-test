@@ -19,6 +19,15 @@ export default class app {
   @action setProcessingState = state => {
     this.store.app.isProcessing = state;
   }
+  @action setFinished = state => {
+    this.store.app.hasFinished = state;
+  }
+  @action setUploaded = state => {
+    this.store.app.hasUploaded = state;
+  }
+  @action setInitiated = state => {
+    this.store.app.hasInitiated = state;
+  }
   @action setUploadState = state => {
     this.store.app.isUploading = state;
   }
@@ -30,5 +39,13 @@ export default class app {
   }
   @action setVideoUrl = state => {
     this.store.app.videoUrl = state;
+  }
+  @action resetStates = () => {
+    this.store.app.isProcessing = false;
+    this.store.app.hasFinished = false;
+    this.store.app.hasUploaded = false;
+    this.store.app.hasInitiated = false;
+    this.store.app.isUploading = false;
+    this.store.app.status = '';
   }
 }

@@ -9,35 +9,14 @@ export default {
     }[this.language];
   },
   @observable videoSrc: [],
-  @computed get getVideoSrc() {
-    return this.store.app.videoSrc;
-  },
   @observable videoBlob: '',
-  @computed get getVideoBlob() {
-    return this.store.app.videoBlob;
-  },
   @observable isRecording: false,
-  @computed get getRecordingState() {
-    return this.store.app.isRecording;
-  },
   @observable isProcessing: false,
-  @computed get getProcessingState() {
-    return this.store.app.isProcessing;
-  },
   @observable isUploading: false,
-  @computed get getUploadState() {
-    return this.store.app.isUploading;
-  },
   @observable isPlaying: false,
-  @computed get getPlayState() {
-    return this.store.app.isPlaying;
-  },
+  @observable hasInitiated: false,
+  @observable hasUploaded: false,
+  @observable hasFinished: false,
   @observable videoUrl: '',
-  @computed get getVideoUrl() {
-    return this.store.app.videoUrl;
-  },
-  @observable status: '',
-  @computed get getStatusState() {
-    return this.store.app.status;
-  }
+  @observable status: ''
 };

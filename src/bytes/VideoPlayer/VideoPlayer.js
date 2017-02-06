@@ -2,21 +2,21 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
 import { Spinner } from 'bits';
-import { UrlContainer } from 'bytes';
 
 const cn = require('classnames/bind').bind(styles);
 
 const VideoPlayer = ({
 videoBlob,
   store: {
-    app: { isProcessing, isUploading, status, videoUrl }
+    app: { isProcessing, isUploading, status }
   },
   services: {
-    app: { setVideoBlob }
+    app: { setVideoBlob, resetStates }
   }
   }) => {
   const handleClear = () => {
     setVideoBlob('');
+    resetStates();
   };
   return (
     <div
@@ -36,9 +36,6 @@ videoBlob,
           type="video/webm"
           />
       </video>
-      {console.log(isUploading, isProcessing)}
-      {/* <ProcessLogs upload={hasFinished} process={hasProcessed} finished={isFinished}/> */}
-      {videoUrl.length ? <UrlContainer videoUrl={videoUrl}/> : null}
       {status.length ? <Spinner message={status}/> : null}
       {isUploading ? <Spinner message={'Uploading Video...'}/> : null}
       {isProcessing ? <Spinner message={'Processing Video...'}/> : null}
