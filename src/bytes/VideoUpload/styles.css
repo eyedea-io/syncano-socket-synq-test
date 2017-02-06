@@ -1,7 +1,7 @@
 .VideoUpload {
     position: absolute;
     left: 0;
-    bottom: -30px;
+    bottom: -45px;
     width: 100%;
     &__dropzone {
         width: 100%;

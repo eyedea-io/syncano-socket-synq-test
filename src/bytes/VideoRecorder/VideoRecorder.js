@@ -74,11 +74,11 @@ const VideoRecorder = ({
   };
   return (
     <div className={cn('VideoRecorder')}>
-      <video
-        autoPlay
-        />
       {isRecording ?
         <div className={cn('VideoRecorder__stop')} onClick={onStop}>
+          <video
+            autoPlay
+            />
           STOP
           <div className={cn('VideoRecorder__stop-square')}/>
           <div className={cn('VideoRecorder__stop-recording')}/>

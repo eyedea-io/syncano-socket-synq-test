@@ -1,18 +1,20 @@
 .ProcessLogs {
 position: absolute;
-top: 0;
+bottom: -170px;
 width: 100%;
-padding: 10px 0px;
-background: #0070d3;
-border-top: 1px solid #BDBDBD;
+padding: 10px 0;
+background: #4f4f4f;
+
 &__tick {
     color: #8BC34A;
 }
 ul{
     list-style-type: none;
     li{
+    	color: #f2f2f2;
         margin-left: 20px;
-        font-size: 1rem;
+        font-size: .8rem;
+        border-bottom: 1px dashed grey;
     }
 }
 }

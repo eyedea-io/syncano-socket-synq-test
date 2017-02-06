@@ -48,4 +48,8 @@ export default class app {
     this.store.app.isUploading = false;
     this.store.app.status = '';
   }
+  @action logIn = (status, password) => {
+    this.store.app.isLoggedIn = status;
+    console.log(status, password);
+  }
 }

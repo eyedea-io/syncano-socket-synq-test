@@ -1,22 +1,25 @@
 import React, { PropTypes } from 'react';
 import styles from './styles.css';
-import formize from './Landing.formize';
-import { Layout, VideoWrapper } from 'bytes';
+import { Layout, VideoWrapper, LoginForm } from 'bytes';
 import { connect } from 'utils';
 
 const cn = require('classnames/bind').bind(styles);
 
-const Landing = () => (
-  <div className={cn('Landing')}>
+const Landing = ({
+	store: {
+		app: { isLoggedIn }
+	}
+}) => {
+  console.log(isLoggedIn);
+  return (<div className={cn('Landing')}>
     <Layout name="Default">
-      <VideoWrapper/>
+      {isLoggedIn ? <VideoWrapper/> : <LoginForm/>}
     </Layout>
-  </div>
-);
-
-Landing.propTypes = {
-  store: PropTypes.object.isRequired,
-  formize: PropTypes.object.isRequired
+  </div>);
 };
 
-export default connect(Landing, { formize });
+Landing.propTypes = {
+  store: PropTypes.object.isRequired
+};
+
+export default connect(Landing);

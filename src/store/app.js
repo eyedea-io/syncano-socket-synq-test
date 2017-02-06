@@ -1,13 +1,6 @@
-import { computed, observable } from 'utils';
+import { observable } from 'utils';
 
 export default {
-  @observable language: 'en',
-  @computed get helloMessage() {
-    return {
-      en: 'Hello',
-      pl: 'Cześć'
-    }[this.language];
-  },
   @observable videoSrc: [],
   @observable videoBlob: '',
   @observable isRecording: false,
@@ -18,5 +11,6 @@ export default {
   @observable hasUploaded: false,
   @observable hasFinished: false,
   @observable videoUrl: '',
-  @observable status: ''
+  @observable status: '',
+  @observable isLoggedIn: false
 };

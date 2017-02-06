@@ -7,8 +7,6 @@ import synqLogo from 'bytes/Header/images/synq.png';
 const cn = require('classnames/bind').bind(styles);
 
 const Header = () => {
-  console.log(syncanoLogo);
-
   return (
     <div className={cn('Header')}>
       <div className={cn('Header__logo-syncano')}>
