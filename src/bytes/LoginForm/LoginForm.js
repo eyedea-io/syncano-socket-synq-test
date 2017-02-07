@@ -10,7 +10,6 @@ const LoginForm = ({
   }
   }) => {
   const handleSubmit = e => {
-    console.log(e.target.childNodes);
     const username = e.target.childNodes[0].value;
     const password = e.target.childNodes[1].value;
     logIn(username, password);

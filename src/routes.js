@@ -10,7 +10,6 @@ const Routes = ({
   }
 }) => {
   if (window.localStorage.getItem('token')) {
-    console.warn('TOKEN FROM STORAGE %c %s', 'color: green; font-size: 24px', window.localStorage.getItem('token'));
     logInUser(true);
   } else {
     logInUser(false);

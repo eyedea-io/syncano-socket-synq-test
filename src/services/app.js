@@ -56,11 +56,9 @@ export default class app {
   }
   @action logIn = (username, password) => {
     const url = 'https://resonance-damp-2382.syncano.link/synq/login_or_signup/';
-    const user = { username, password };
     const form = new FormData();
     form.append('username', username);
     form.append('password', password);
-    console.log(user);
     fetch(url, {
       method: 'POST',
       body: form
@@ -69,10 +67,8 @@ export default class app {
         res.json()
           .then(data => {
             window.localStorage.setItem('token', data.token);
-            console.log(data.token);
           });
         this.setLoggedIn(true);
-        console.log(this.store.app.isLoggedIn);
       } else {
         throw new Error('Something went wrong');
       }
