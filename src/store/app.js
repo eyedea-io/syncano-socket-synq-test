@@ -7,9 +7,9 @@ export default {
   @observable isProcessing: false,
   @observable isUploading: false,
   @observable isPlaying: false,
-  @observable hasInitiated: true,
-  @observable hasUploaded: true,
-  @observable hasFinished: true,
+  @observable hasInitiated: false,
+  @observable hasUploaded: false,
+  @observable hasFinished: false,
   @observable videoUrl: '',
   @observable status: '',
   @observable isLoggedIn: false

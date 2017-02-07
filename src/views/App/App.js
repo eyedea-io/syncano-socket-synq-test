@@ -10,10 +10,12 @@ import store from 'store';
 // Functions that operate on data in store
 import * as services from 'services';
 
-export default () => (
-  <Provider store={store} services={services}>
-    <Router>
-      <Routes/>
-    </Router>
-  </Provider>
-);
+export default () => {
+  return (
+    <Provider store={store} services={services}>
+      <Router>
+        <Routes/>
+      </Router>
+    </Provider>
+  );
+};

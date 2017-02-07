@@ -48,8 +48,36 @@ export default class app {
     this.store.app.isUploading = false;
     this.store.app.status = '';
   }
-  @action logIn = (status, password) => {
+  @action logInUser = status => {
     this.store.app.isLoggedIn = status;
-    console.log(status, password);
+  }
+  setLoggedIn = status => {
+    this.store.app.isLoggedIn = status;
+  }
+  @action logIn = (username, password) => {
+    const url = 'https://resonance-damp-2382.syncano.link/synq/login_or_signup/';
+    const user = { username, password };
+    const form = new FormData();
+    form.append('username', username);
+    form.append('password', password);
+    console.log(user);
+    fetch(url, {
+      method: 'POST',
+      body: form
+    }).then(res => {
+      if (res.ok) {
+        res.json()
+          .then(data => {
+            window.localStorage.setItem('token', data.token);
+            console.log(data.token);
+          });
+        this.setLoggedIn(true);
+        console.log(this.store.app.isLoggedIn);
+      } else {
+        throw new Error('Something went wrong');
+      }
+    }).catch(err => {
+      console.error(err);
+    });
   }
 }

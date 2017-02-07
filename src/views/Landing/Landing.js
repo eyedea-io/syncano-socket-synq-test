@@ -10,7 +10,6 @@ const Landing = ({
 		app: { isLoggedIn }
 	}
 }) => {
-  console.log(isLoggedIn);
   return (<div className={cn('Landing')}>
     <Layout name="Default">
       {isLoggedIn ? <VideoWrapper/> : <LoginForm/>}

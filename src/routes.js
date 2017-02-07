@@ -4,8 +4,17 @@ import { connect, MatchAsMember, MatchAsGuest } from 'utils';
 
 import { Landing, NotFound } from 'views';
 
-const Routes = () => {
-  console.log('test');
+const Routes = ({
+  services: {
+    app: { logInUser }
+  }
+}) => {
+  if (window.localStorage.getItem('token')) {
+    console.warn('TOKEN FROM STORAGE %c %s', 'color: green; font-size: 24px', window.localStorage.getItem('token'));
+    logInUser(true);
+  } else {
+    logInUser(false);
+  }
   return (
     <div className="App">
       <Match pattern="/" exactly component={Landing}/>
@@ -16,7 +25,6 @@ const Routes = () => {
   );
 };
 Routes.propTypes = {
-  store: PropTypes.object.isRequired,
   services: PropTypes.object.isRequired
 };
 

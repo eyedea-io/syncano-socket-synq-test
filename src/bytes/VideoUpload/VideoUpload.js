@@ -15,6 +15,8 @@ const VideoUpload = ({
   const uploadState = setUploadState;
   const processState = setProcessingState;
   const handleSend = files => {
+    const token = window.localStorage.getItem('token');
+    console.log(token, typeof token);
     uploadState(true);
     processState(false);
     setVideoBlob('');
@@ -27,7 +29,7 @@ const VideoUpload = ({
     const url = 'https://resonance-damp-2382.syncano.link/synq/create/';
     fetch(url, {
       headers: {
-        'X-USER-KEY': 'ecf10bd5bdca44409126aa2ef57da7705abd568a'
+        'X-USER-KEY': window.localStorage.getItem('token')
       },
       method: 'GET'
     }).then(data => {
@@ -54,7 +56,7 @@ const VideoUpload = ({
               if (res.ok) {
                 fetch('https://resonance-damp-2382.syncano.link/synq/subscribe_channel/', {
                   headers: {
-                    'X-USER-KEY': 'ecf10bd5bdca44409126aa2ef57da7705abd568a'
+                    'X-USER-KEY': window.localStorage.getItem('token')
                   },
                   method: 'GET'
                 })
