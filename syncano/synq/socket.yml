@@ -41,6 +41,25 @@ classes:
       filter_index: true
 
 endpoints:
+  login_or_signup:
+    description: Simple script used to login or signup user to Syncano
+    file: scripts/login_or_signup.js
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              user_key: 'sfhsjhfso4593598!mdfsjf'
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {}
+
   subscribe_channel:
     channel: default.{user}
 

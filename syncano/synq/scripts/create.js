@@ -16,7 +16,7 @@ if( !user.hasOwnProperty('id') ){
 const { data } = server
 const createForm = new FormData()
 const userData = {
-  user_id: user.id,
+  user_key: user.user_key,
   username: user.username
 }
 
