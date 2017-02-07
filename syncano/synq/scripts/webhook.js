@@ -1,12 +1,5 @@
-import connect from 'syncano-server'
+import db from '../../helpers/db'
 import fetch from 'node-fetch'
-
-const server = connect({
-  token: META.token,
-  instanceName: META.instance,
-})
-
-const { data } = server
 
 const postData = ARGS.POST
 
@@ -28,8 +21,8 @@ fetch(url, {
   body: JSON.stringify(channelMessage)
 }).then(res => res.json())
   .then( json => {
-    data.video_storage.where('synq_video_id', postData.video_id).first().then( result => {
-      data.video_storage.update(result.id, {
+    db.data.video_storage.where('synq_video_id', postData.video_id).first().then( result => {
+      db.data.video_storage.update(result.id, {
         embeded_url: postData.video_url,
         synq_widget: postData.embed_url,
         synq_state: postData.state

@@ -1,12 +1,8 @@
 // This script is only simple example for testing purposes only. It should be replaced with proper authentication script or socket.
-import connect from 'syncano-server'
 import fetch from 'node-fetch'
+import db from '../../helpers/db'
+import respond from '../../helpers/respond'
 
-const server = connect({
-  token: META.token,
-  instanceName: META.instance,
-})
-const { users } = server
 const { username, password } = ARGS.POST
 
 const createUser = () => {
@@ -16,9 +12,9 @@ const createUser = () => {
     password
   }
 
-  users.create(user)
-  .then(res => setResponse(new HttpResponse(200, JSON.stringify(res.user_key), 'application/json')))
-  .catch(err => setResponse(new HttpResponse(200, JSON.stringify(err), 'application/json')))
+  db.users.create(user)
+  .then(res => respond.json({token: res.user_key}))
+  .catch(err => respond.error(err))
 }
 
 const authenticateUser = () => {
@@ -35,15 +31,13 @@ const authenticateUser = () => {
     }
   })
   .then(res => res.json())
-  .then(json => setResponse(new HttpResponse(200, JSON.stringify(json.user_key), 'application/json')))
+  .then(json => respond.json({token: json.user_key}))
   .catch(({ response: err }) => {
-    err.json().then(json => {
-      setResponse(new HttpResponse(err.status, JSON.stringify(json), 'application/json'))
-    })
+    err.json().then(json => respond.error(json))
   })
 }
 
-users
+db.users
 .where('username', 'eq', username)
 .firstOrFail()
 .then(authenticateUser)
