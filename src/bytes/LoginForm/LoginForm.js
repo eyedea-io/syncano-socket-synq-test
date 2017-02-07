@@ -19,6 +19,7 @@ const LoginForm = ({
     <div
       className={cn('LoginForm')}
       >
+      <h4>Login using existing account or register new one</h4>
       <form onSubmit={handleSubmit}>
         <input type={'text'} placeholder={'Login'} required/>
         <input type={'password'} placeholder={'Password'} required/>

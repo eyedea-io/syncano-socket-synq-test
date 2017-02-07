@@ -12,5 +12,6 @@ export default {
   @observable hasFinished: false,
   @observable videoUrl: '',
   @observable status: '',
-  @observable isLoggedIn: false
+  @observable isLoggedIn: false,
+  @observable username: ''
 };

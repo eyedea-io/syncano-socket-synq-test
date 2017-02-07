@@ -6,7 +6,18 @@ import synqLogo from 'bytes/Header/images/synq.png';
 
 const cn = require('classnames/bind').bind(styles);
 
-const Header = () => {
+const Header = ({
+  store: {
+    app: { isLoggedIn, username }
+  },
+  services: {
+    app: { logOut, setUserName }
+  }
+}) => {
+  const handleLogOut = () => {
+    setUserName('');
+    logOut();
+  };
   return (
     <div className={cn('Header')}>
       <div className={cn('Header__logo-syncano')}>
@@ -17,13 +28,19 @@ const Header = () => {
         <a href="https://www.synq.fm/" className={cn('Header__logo-link')}><img src={synqLogo}/></a>
       </div>
       <div className={cn('Header__description')}>WebRTC recorder, player and uploader DEMO</div>
+      {isLoggedIn ? <div className={cn('Header__logout')}>
+        <div className={cn('Header__logout-username')}>
+          Hello, <span>{username}</span>
+        </div>
+        <button onClick={handleLogOut}> Log Out </button>
+      </div> : null}
     </div>
   );
 };
 
 Header.propTypes = {
-  store: PropTypes.object.isRequired,
-  services: PropTypes.object.isRequired
+  services: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 };
 
 export default connect(Header);
