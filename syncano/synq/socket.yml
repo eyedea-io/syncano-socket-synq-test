@@ -41,6 +41,14 @@ classes:
       filter_index: true
 
 endpoints:
+  delete:
+    description: Remove Syncano video object
+    file: scripts/delete.js
+
+  list:
+    description: List user's video objects
+    file: scripts/list.js
+
   login_or_signup:
     description: Simple script used to login or signup user to Syncano
     file: scripts/login_or_signup.js

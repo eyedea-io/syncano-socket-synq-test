@@ -13,7 +13,7 @@ const createUser = () => {
   }
 
   db.users.create(user)
-  .then(res => respond.json({token: res.user_key}))
+  .then(res => respond.json({token: res.user_key, username: res.username}))
   .catch(err => respond.error(err))
 }
 
@@ -31,7 +31,7 @@ const authenticateUser = () => {
     }
   })
   .then(res => res.json())
-  .then(json => respond.json({token: json.user_key}))
+  .then(json => respond.json({token: json.user_key, username: json.username}))
   .catch(({ response: err }) => {
     err.json().then(json => respond.error(json))
   })
