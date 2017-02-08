@@ -41,6 +41,10 @@ classes:
       filter_index: true
 
 endpoints:
+  update:
+    description: Updates video meta data
+    file: scripts/update.js
+
   details:
     description: Returns synq vidoe object details
     file: scripts/details.js
