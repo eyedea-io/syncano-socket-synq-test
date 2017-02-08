@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
 import { Spinner } from 'bits';
+import { ListVideos } from 'bytes';
 
 const cn = require('classnames/bind').bind(styles);
 
@@ -39,6 +40,7 @@ videoBlob,
       {status.length ? <Spinner message={status}/> : null}
       {isUploading ? <Spinner message={'Uploading Video...'}/> : null}
       {isProcessing ? <Spinner message={'Processing Video...'}/> : null}
+      <ListVideos/>
     </div>
   );
 };

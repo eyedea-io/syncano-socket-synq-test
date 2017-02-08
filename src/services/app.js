@@ -1,9 +1,17 @@
 import { action } from 'utils';
 
 export default class app {
-  @action setLanguage = language => {
-    this.store.app.language = language;
-  }
+  @action fetchVideos = async () => {
+    const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
+    fetch(list, {
+      headers: {
+        'X-USER-KEY': window.localStorage.token
+      },
+      method: 'GET'
+    }).then(data => data.json().then(data => {
+      this.setVideoList(data);
+    }));
+  };
   @action setVideoSrc = src => {
     this.store.app.videoSrc = src;
   }
@@ -64,6 +72,12 @@ export default class app {
   userName = username => {
     this.store.app.username = username;
   }
+  setVideoL = videos => {
+    this.store.app.videoList = videos;
+  }
+  @action setVideoList = videos => {
+    this.store.app.videoList = videos;
+  }
   @action logIn = (username, password) => {
     const url = 'https://resonance-damp-2382.syncano.link/synq/login_or_signup/';
     const form = new FormData();
@@ -77,8 +91,18 @@ export default class app {
         res.json()
           .then(data => {
             window.localStorage.setItem('token', data.token);
+            window.localStorage.setItem('username', data.username);
+            const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
+            fetch(list, {
+              headers: {
+                'X-USER-KEY': data.token
+              },
+              method: 'GET'
+            }).then(data => data.json().then(data => {
+              this.setVideoList(data);
+              window.localStorage.setItem('videos', data);
+            }));
             this.userName(data.username);
-            console.log(data);
           });
         this.setLoggedIn(true);
       } else {

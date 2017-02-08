@@ -4,6 +4,7 @@
     color: #F2F2F2;
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     min-width: 650px;
@@ -25,8 +26,4 @@
             color: white;
         }
     }
-}
-
-#progress {
-    background: red;
 }

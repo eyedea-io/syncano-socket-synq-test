@@ -13,5 +13,6 @@ export default {
   @observable videoUrl: '',
   @observable status: '',
   @observable isLoggedIn: false,
-  @observable username: ''
+  @observable username: '',
+  @observable videoList: []
 };

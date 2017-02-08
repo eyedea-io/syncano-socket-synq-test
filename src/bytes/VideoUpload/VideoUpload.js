@@ -9,13 +9,15 @@ const cn = require('classnames/bind').bind(styles);
 
 const VideoUpload = ({
   services: {
-  app: { setVideoBlob, setUploadState, setProcessingState, setStatus, setVideoUrl, setUploaded, setFinished, setInitiated }
+  app: { setVideoBlob, setUploadState, setProcessingState, setStatus, setVideoUrl, setUploaded, setFinished, setInitiated, fetchVideos }
 }
 }) => {
   const uploadState = setUploadState;
   const processState = setProcessingState;
   const handleSend = files => {
     const token = window.localStorage.getItem('token');
+    console.log('moj token: %c test', token, 'color: red; font-size: 24px;');
+    console.log(token);
     uploadState(true);
     processState(false);
     setVideoBlob('');
@@ -25,7 +27,7 @@ const VideoUpload = ({
     setInitiated(false);
     setFinished(false);
     const file = files[0];
-    const url = 'https://resonance-damp-2382.syncano.link/synq/create/';
+    const url = 'https://resonance-damp-2382.syncano.link/synq/upload/';
     fetch(url, {
       headers: {
         'X-USER-KEY': token
@@ -66,6 +68,7 @@ const VideoUpload = ({
                       setStatus('Completed!');
                       setVideoUrl(json.payload.message);
                       setVideoBlob(json.payload.message);
+                      fetchVideos();
                     });
               } else {
                 throw new Error(`Response ${res.status}`);

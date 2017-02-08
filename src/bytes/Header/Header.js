@@ -30,7 +30,7 @@ const Header = ({
       <div className={cn('Header__description')}>WebRTC recorder, player and uploader DEMO</div>
       {isLoggedIn ? <div className={cn('Header__logout')}>
         <div className={cn('Header__logout-username')}>
-          Hello, <span>{username}</span>
+          Hello, <span>{username || window.localStorage.username}</span>
         </div>
         <button onClick={handleLogOut}> Log Out </button>
       </div> : null}
