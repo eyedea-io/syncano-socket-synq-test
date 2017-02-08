@@ -16,8 +16,6 @@ const VideoUpload = ({
   const processState = setProcessingState;
   const handleSend = files => {
     const token = window.localStorage.getItem('token');
-    console.log('moj token: %c test', token, 'color: red; font-size: 24px;');
-    console.log(token);
     uploadState(true);
     processState(false);
     setVideoBlob('');
@@ -38,7 +36,6 @@ const VideoUpload = ({
         setInitiated(true);
         data.json()
           .then(data => {
-            console.log(data, 'after create');
             const form = new FormData();
             const formObject = data.form;
             for (const key in formObject) {

@@ -14,7 +14,7 @@ const VideoRecorder = ({
     }
   },
   services: {
-    app: { setVideoBlob, setRecordingState }
+    app: { setRecordingState, sendBlob }
   }
 }) => {
   let constraints;
@@ -36,11 +36,11 @@ const VideoRecorder = ({
     window.recorder.startRecording();
   };
   const onStop = () => {
-    window.recorder.stopRecording(videoURL => {
+    window.recorder.stopRecording(() => {
       setRecordingState(false);
-      console.log(videoURL);
-      // const recordedBlob = window.recorder.getBlob();
-      setVideoBlob(videoURL);
+      const blob = window.recorder.getBlob();
+      console.log(blob);
+      sendBlob(blob);
       window.recorder.getDataURL(dataURL => {
         return dataURL;
       });
