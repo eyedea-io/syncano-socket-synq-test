@@ -9,7 +9,7 @@ const ListVideos = ({
     app: { videoList }
   },
   services: {
-    app: { fetchVideos }
+    app: { fetchVideos, setVideoBlob }
   }
 }) => {
   const handleDelete = e => {
@@ -29,6 +29,10 @@ const ListVideos = ({
       fetchVideos();
     });
   };
+  const handlePreview = e => {
+    const link = e.target.attributes[0].value;
+    setVideoBlob(link);
+  };
   return (
     <div className={cn('ListVideos')}>
       <div className={cn('ListVideos__wrapper')}>
@@ -42,10 +46,10 @@ const ListVideos = ({
                 </div>
               </div>
               <div className={cn('ListVideos__url')}>
-                <a href={video.url}>Click to open</a>
+                <a href={video.url} rel="noopener noreferrer" target="_blank">Click to open</a>
               </div>
-              <div className={cn('ListVideos__preview')} data-id={video.url}>
-                <button>PREVIEW</button>
+              <div className={cn('ListVideos__preview')}>
+                <button onClick={handlePreview} data-id={video.url}>PREVIEW</button>
               </div>
             </div>
           );
