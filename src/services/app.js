@@ -3,14 +3,16 @@ import { action } from 'utils';
 export default class app {
   @action fetchVideos = async () => {
     const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
-    fetch(list, {
-      headers: {
-        'X-USER-KEY': window.localStorage.token
-      },
-      method: 'GET'
-    }).then(data => data.json().then(data => {
-      this.setVideoList(data);
-    }));
+    if (window.localStorage.token) {
+      fetch(list, {
+        headers: {
+          'X-USER-KEY': window.localStorage.token
+        },
+        method: 'GET'
+      }).then(data => data.json().then(data => {
+        this.setVideoList(data);
+      }));
+    }
   };
   @action setVideoSrc = src => {
     this.store.app.videoSrc = src;

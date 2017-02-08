@@ -9,11 +9,17 @@ const cn = require('classnames/bind').bind(styles);
 const VideoWrapper = ({
   store: {
     app: {
-      videoSrc, videoBlob
+      videoSrc, videoBlob, isLoggedIn
     }
+  },
+  services: {
+    app: { fetchVideos }
   }
 }
 ) => {
+  if (isLoggedIn) {
+    fetchVideos();
+  }
   return (
     <div className={cn('VideoWrapper')}>
       <VideoRecorder/>
@@ -23,7 +29,8 @@ const VideoWrapper = ({
 };
 
 VideoWrapper.propTypes = {
-  store: PropTypes.object
+  store: PropTypes.object,
+  services: PropTypes.object
 };
 
 export default connect(VideoWrapper);
