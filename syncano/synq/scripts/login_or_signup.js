@@ -1,7 +1,7 @@
 // This script is only simple example for testing purposes only. It should be replaced with proper authentication script or socket.
 import fetch from 'node-fetch'
-import db from '../../helpers/db'
-import respond from '../../helpers/respond'
+import db from '../helpers/db'
+import respond from '../helpers/respond'
 
 const { username, password } = ARGS.POST
 

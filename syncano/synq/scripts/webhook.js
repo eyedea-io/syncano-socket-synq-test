@@ -1,6 +1,6 @@
-import db from '../../helpers/db'
 import fetch from 'node-fetch'
-import envs from '../../helpers/envs'
+import db from '../helpers/db'
+import envs from '../helpers/envs'
 
 const user = META.user || {}
 const postData = ARGS.POST

@@ -1,5 +1,5 @@
-import db from '../../helpers/db'
-import respond from '../../helpers/respond'
+import db from '../helpers/db'
+import respond from '../helpers/respond'
 
 const user = META.user || {}
 

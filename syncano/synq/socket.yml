@@ -3,7 +3,7 @@ description: Integration Synq.fm with Syncano.io
 
 config:
   SYNQ_API_KEY:
-    value: <your synq api key>
+    required: true
 
 classes:
   video_storage:

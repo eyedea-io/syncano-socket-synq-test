@@ -1,8 +1,8 @@
 import fetch from 'node-fetch'
 import FormData from 'form-data'
-import db from '../../helpers/db'
-import respond from '../../helpers/respond'
-import envs from '../../helpers/envs'
+import db from '../helpers/db'
+import envs from '../helpers/envs'
+import respond from '../helpers/respond'
 
 const user = META.user || {}
 const postData = ARGS.POST
