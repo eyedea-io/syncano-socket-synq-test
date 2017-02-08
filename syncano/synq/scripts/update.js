@@ -15,7 +15,7 @@ if( !user.hasOwnProperty('id') ){
 const updateVideoObject = data => {
   db.data.video_storage
   .update(postData.id, { meta: data.userdata })
-  .then(response => respond.json(response))
+  .then(response => respond.json("Success"))
   .catch(err => respond.error(err))
 }
 
