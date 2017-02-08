@@ -8,7 +8,6 @@ if( !user.hasOwnProperty('id') ){
   process.exit()
 }
 
-//link, delete,
 db.data.video_storage
 .where('user', user.id)
 .list()

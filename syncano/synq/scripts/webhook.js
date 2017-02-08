@@ -1,16 +1,23 @@
 import db from '../../helpers/db'
 import fetch from 'node-fetch'
+import envs from '../../helpers/envs'
 
+const user = META.user || {}
 const postData = ARGS.POST
+
+if( !user.hasOwnProperty('id') ){
+  respond.error({message: 'Unauthorized endpoint call'}, 401)
+  process.exit()
+}
 
 const channelMessage = {
   "payload": {
     "message": postData.video_url
   },
-  "room": `default.${postData.username}`
+  "room": `default.${user.username}`
 }
 
-const url = `https://api.syncano.rocks/v2/instances/${META.instance}/channels/default/publish/`
+const url = `${envs.syncanoUrl}instances/${META.instance}/channels/default/publish/`
 
 fetch(url, {
   method: 'POST',

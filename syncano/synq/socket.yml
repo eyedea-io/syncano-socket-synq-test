@@ -41,6 +41,14 @@ classes:
       filter_index: true
 
 endpoints:
+  details:
+    description: Returns synq vidoe object details
+    file: scripts/details.js
+
+  uploader:
+    description: Returns uploader widget
+    file: scripts/uploader.js
+
   delete:
     description: Remove Syncano video object
     file: scripts/delete.js
@@ -75,9 +83,9 @@ endpoints:
     description: Used to get notify when video upload is complete
     file: scripts/webhook.js
 
-  create:
-    description: Create Synq vido object and save data in Syncano
-    file: scripts/create.js
+  upload:
+    description: Returns neccesary data to begin upload vido to SYNQ
+    file: scripts/upload.js
     response:
       mimetype: application/json
       examples:
