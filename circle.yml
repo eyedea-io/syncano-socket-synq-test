@@ -31,7 +31,7 @@ deployment:
     branch: devel
     commands:
       - yarn build
-      - syncano-cli sync
+      - echo $SYNQ_API_KEY | syncano-cli socket sync synq
 
 test:
   override:
