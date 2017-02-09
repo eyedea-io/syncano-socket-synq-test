@@ -14,7 +14,7 @@ const VideoRecorder = ({
     }
   },
   services: {
-    app: { setRecordingState, sendBlob }
+    app: { setRecordingState, sendFile }
   }
 }) => {
   let constraints;
@@ -40,7 +40,7 @@ const VideoRecorder = ({
       setRecordingState(false);
       const blob = window.recorder.getBlob();
       console.log(blob);
-      sendBlob(blob);
+      sendFile(blob);
       window.recorder.getDataURL(dataURL => {
         return dataURL;
       });

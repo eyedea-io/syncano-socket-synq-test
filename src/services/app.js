@@ -114,7 +114,7 @@ export default class app {
       console.error(err);
     });
   }
-  @action sendBlob = blob => {
+  @action sendFile = blob => {
     const token = window.localStorage.getItem('token');
     this.setUploadState(true);
     this.setProcessingState(false);
@@ -124,7 +124,9 @@ export default class app {
     this.setUploaded(false);
     this.setInitiated(false);
     this.setFinished(false);
-    const file = blob;
+    console.log(typeof blob);
+    const file = (blob[0] ? blob[0] : blob);
+    console.log('file', file);
     const url = 'https://resonance-damp-2382.syncano.link/synq/upload/';
     fetch(url, {
       headers: {
