@@ -5,6 +5,9 @@ import { connect } from 'utils';
 const cn = require('classnames/bind').bind(styles);
 
 const LoginForm = ({
+  store: {
+    app: { status }
+  },
   services: {
     app: { logIn }
   }
@@ -25,12 +28,14 @@ const LoginForm = ({
         <input type={'password'} placeholder={'Password'} required/>
         <button type={'submit'}>log in</button>
       </form>
+      {status.length ? <div className={cn('LoginForm__status')}>{status}</div> : null }
     </div>
   );
 };
 
 LoginForm.propTypes = {
-  services: PropTypes.object
+  services: PropTypes.object,
+  store: PropTypes.object
 };
 
 export default connect(LoginForm);

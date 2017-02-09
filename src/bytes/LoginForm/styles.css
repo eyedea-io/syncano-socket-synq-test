@@ -8,6 +8,10 @@
 		padding: 20px;
 		color: #f2f2f2;
 	}
+	&__status {
+		color: indianred;
+    	text-align: center;
+	}
 	form {
 		display: flex;
 		flex-wrap: wrap;

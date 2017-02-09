@@ -92,25 +92,35 @@ export default class app {
       if (res.ok) {
         res.json()
           .then(data => {
-            window.localStorage.setItem('token', data.token);
-            window.localStorage.setItem('username', data.username);
-            const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
-            fetch(list, {
-              headers: {
-                'X-USER-KEY': data.token
-              },
-              method: 'GET'
-            }).then(data => data.json().then(data => {
-              this.setVideoList(data);
-              window.localStorage.setItem('videos', data);
-            }));
-            this.userName(data.username);
+            if (Object.keys(data).length > 0) {
+              window.localStorage.setItem('token', data.token);
+              window.localStorage.setItem('username', data.username);
+              const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
+              fetch(list, {
+                headers: {
+                  'X-USER-KEY': data.token
+                },
+                method: 'GET'
+              }).then(data => data.json().then(data => {
+                this.setVideoList(data);
+                window.localStorage.setItem('videos', data);
+              }));
+              this.userName(data.username);
+              this.setLoggedIn(true);
+              this.setStatus('');
+            } else {
+              throw new Error('Can\'t create this user. Try different username');
+            }
+          }).catch(err => {
+            console.log(err);
+            this.setStatus(`${err}`);
+            this.setLoggedIn(false);
           });
-        this.setLoggedIn(true);
       } else {
         throw new Error('Something went wrong');
       }
     }).catch(err => {
+      this.setStatus(`${err}`);
       console.error(err);
     });
   }
@@ -124,9 +134,7 @@ export default class app {
     this.setUploaded(false);
     this.setInitiated(false);
     this.setFinished(false);
-    console.log(typeof blob);
     const file = (blob[0] ? blob[0] : blob);
-    console.log('file', file);
     const url = 'https://resonance-damp-2382.syncano.link/synq/upload/';
     fetch(url, {
       headers: {
