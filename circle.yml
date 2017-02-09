@@ -34,11 +34,6 @@ deployment:
       - cd syncano && yarn install && cd ..
       - echo $SYNQ_API_KEY | syncano-cli socket sync synq
 
-test:
-  override:
-    - yarn test:
-        timeout: 400
-
 experimental:
   notify:
     branches:
