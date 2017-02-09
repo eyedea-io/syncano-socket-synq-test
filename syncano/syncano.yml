@@ -1,0 +1,4 @@
+dependencies:
+  sockets:
+    synq:
+      version: '0.1'
