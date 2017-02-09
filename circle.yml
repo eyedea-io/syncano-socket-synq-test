@@ -31,6 +31,7 @@ deployment:
     branch: devel
     commands:
       - yarn build
+      - cd syncano && yarn install && cd ..
       - echo $SYNQ_API_KEY | syncano-cli socket sync synq
 
 test:
