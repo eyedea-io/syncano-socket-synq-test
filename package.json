@@ -110,11 +110,12 @@
     "module": false,
     "semicolon": true,
     "ignores": [
-      "syncano",
       "config",
       "scripts/build.js",
       "node_modules",
-      "\\.(json|css|jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm)$"
+      "\\.(json|css|jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm)$",
+      "syncano",
+      "syncano/**/**/**.js"
     ],
     "settings": {
       "import/resolver": {

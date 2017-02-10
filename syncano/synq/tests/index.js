@@ -7,7 +7,7 @@ const syncanoCall = function(endpoint, params, key) {
       method: 'POST',
       body: JSON.stringify(params),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
         'X-USER-KEY': key
       }
     })
