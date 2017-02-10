@@ -110,6 +110,7 @@
     "module": false,
     "semicolon": true,
     "ignores": [
+      "syncano",
       "config",
       "scripts/build.js",
       "node_modules",
