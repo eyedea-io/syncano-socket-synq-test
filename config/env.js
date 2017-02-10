@@ -3,7 +3,7 @@
 
 const REACT_APP = /^REACT_APP_/i;
 const NODE_ENV = JSON.stringify(process.env.NODE_ENV || 'development');
-const SYNQ_API_KEY = JSON.stringify(process.env.SYNQ_API_KEY);
+const SYNCANO_BASE_URL = JSON.stringify(process.env.SYNCANO_BASE_URL);
 
 module.exports = Object
   .keys(process.env)
@@ -12,5 +12,6 @@ module.exports = Object
     [`process.env.${key}`]: JSON.stringify(process.env[key])
   }), {
     'process.env.NODE_ENV': NODE_ENV,
-    'process.env.SYNQ_API_KEY': SYNQ_API_KEY
+    'process.env.SYNCANO_BASE_URL': SYNCANO_BASE_URL
+
   });

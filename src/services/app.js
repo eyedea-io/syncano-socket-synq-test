@@ -1,8 +1,9 @@
 import { action } from 'utils';
 
+const SYNCANO_BASE_URL = process.env.SYNCANO_BASE_URL;
 export default class app {
   @action fetchVideos = async () => {
-    const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
+    const list = `${SYNCANO_BASE_URL}/synq/list/`;
     if (window.localStorage.token) {
       fetch(list, {
         headers: {
@@ -14,20 +15,11 @@ export default class app {
       }));
     }
   };
-  @action setVideoSrc = src => {
-    this.store.app.videoSrc = src;
-  }
   @action setVideoBlob = src => {
     this.store.app.videoBlob = src;
   }
-  @action getVideoSrc = () => {
-    return this.store.app.videoSrc;
-  }
   @action setRecordingState = state => {
     this.store.app.isRecording = state;
-  }
-  @action setProcessingState = state => {
-    this.store.app.isProcessing = state;
   }
   @action setFinished = state => {
     this.store.app.hasFinished = state;
@@ -38,50 +30,33 @@ export default class app {
   @action setInitiated = state => {
     this.store.app.hasInitiated = state;
   }
-  @action setUploadState = state => {
-    this.store.app.isUploading = state;
-  }
-  @action setPlayState = state => {
-    this.store.app.isPlaying = state;
-  }
   @action setStatus = state => {
     this.store.app.status = state;
   }
   @action setVideoUrl = state => {
     this.store.app.videoUrl = state;
   }
-  @action resetStates = () => {
-    this.store.app.isProcessing = false;
-    this.store.app.hasFinished = false;
-    this.store.app.hasUploaded = false;
-    this.store.app.hasInitiated = false;
-    this.store.app.isUploading = false;
-    this.store.app.status = '';
-  }
-  @action logInUser = status => {
-    this.store.app.isLoggedIn = status;
-  }
   @action logOut = () => {
     window.localStorage.clear();
     this.store.app.isLoggedIn = false;
   }
-  setLoggedIn = status => {
+  @action logInUser = status => {
     this.store.app.isLoggedIn = status;
   }
   @action setUserName = username => {
     this.store.app.username = username;
   }
-  userName = username => {
-    this.store.app.username = username;
-  }
-  setVideoL = videos => {
-    this.store.app.videoList = videos;
-  }
   @action setVideoList = videos => {
     this.store.app.videoList = videos;
   }
+  @action resetStates = () => {
+    this.store.app.hasFinished = false;
+    this.store.app.hasUploaded = false;
+    this.store.app.hasInitiated = false;
+    this.store.app.status = '';
+  }
   @action logIn = (username, password) => {
-    const url = 'https://resonance-damp-2382.syncano.link/synq/login_or_signup/';
+    const url = `${SYNCANO_BASE_URL}/synq/login_or_signup/`;
     const form = new FormData();
     form.append('username', username);
     form.append('password', password);
@@ -95,7 +70,7 @@ export default class app {
             if (Object.keys(data).length > 0) {
               window.localStorage.setItem('token', data.token);
               window.localStorage.setItem('username', data.username);
-              const list = 'https://resonance-damp-2382.syncano.link/synq/list/';
+              const list = `${SYNCANO_BASE_URL}/synq/list/`;
               fetch(list, {
                 headers: {
                   'X-USER-KEY': data.token
@@ -105,8 +80,8 @@ export default class app {
                 this.setVideoList(data);
                 window.localStorage.setItem('videos', data);
               }));
-              this.userName(data.username);
-              this.setLoggedIn(true);
+              this.setUserName(data.username);
+              this.logInUser(true);
               this.setStatus('');
             } else {
               throw new Error('Can\'t create this user. Try different username');
@@ -114,10 +89,10 @@ export default class app {
           }).catch(err => {
             console.log(err);
             this.setStatus(`${err}`);
-            this.setLoggedIn(false);
+            this.logInUser(false);
           });
       } else {
-        throw new Error('Something went wrong');
+        throw new Error(`Something went wrong ${res.status}`);
       }
     }).catch(err => {
       this.setStatus(`${err}`);
@@ -126,8 +101,6 @@ export default class app {
   }
   @action sendFile = blob => {
     const token = window.localStorage.getItem('token');
-    this.setUploadState(true);
-    this.setProcessingState(false);
     this.setVideoBlob('');
     this.setStatus('');
     this.setVideoUrl('');
@@ -135,7 +108,7 @@ export default class app {
     this.setInitiated(false);
     this.setFinished(false);
     const file = (blob[0] ? blob[0] : blob);
-    const url = 'https://resonance-damp-2382.syncano.link/synq/upload/';
+    const url = `${SYNCANO_BASE_URL}/synq/upload/`;
     fetch(url, {
       headers: {
         'X-USER-KEY': token
@@ -154,15 +127,13 @@ export default class app {
               }
             }
             form.append('file', file);
-            this.setUploadState(false);
-            this.setProcessingState(true);
             fetch(data.url, {
               method: 'POST',
               body: form
             }).then(res => {
               this.setUploaded(true);
               if (res.ok) {
-                fetch('https://resonance-damp-2382.syncano.link/synq/subscribe_channel/', {
+                fetch(`${SYNCANO_BASE_URL}/synq/subscribe_channel/`, {
                   headers: {
                     'X-USER-KEY': token
                   },
@@ -171,7 +142,6 @@ export default class app {
                   .then(res => res.json())
                     .then(json => {
                       this.setFinished(true);
-                      this.setProcessingState(false);
                       this.setStatus('Completed!');
                       this.setVideoUrl(json.payload.message);
                       this.setVideoBlob(json.payload.message);
@@ -182,7 +152,6 @@ export default class app {
               }
             }).catch(err => {
               if (err) {
-                this.setProcessingState(false);
                 this.setStatus(`Something went wrong: ${err}`);
                 console.error(err);
               }

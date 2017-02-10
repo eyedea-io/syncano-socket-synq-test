@@ -1,8 +1,10 @@
 .ListVideos {
 	position: absolute;
+	-moz-position: unset;
     z-index: 100;
     width: 100%;
     bottom: -80px;
+    left: 0px;
     overflow-y: scroll;
     min-height: 80px;
     max-height: 120px;

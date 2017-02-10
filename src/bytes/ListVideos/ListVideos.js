@@ -12,10 +12,10 @@ const ListVideos = ({
     app: { fetchVideos, setVideoBlob }
   }
 }) => {
+  const SYNCANO_BASE_URL = process.env.SYNCANO_BASE_URL;
   const handleDelete = e => {
     const id = e.target.attributes[0].value;
-    console.log(id);
-    const url = 'https://resonance-damp-2382.syncano.link/synq/delete/';
+    const url = `${SYNCANO_BASE_URL}/synq/delete/`;
     const token = window.localStorage.token;
     const form = new FormData();
     form.append('id', id);

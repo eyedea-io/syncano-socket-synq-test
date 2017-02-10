@@ -9,7 +9,7 @@ const cn = require('classnames/bind').bind(styles);
 const VideoPlayer = ({
 videoBlob,
   store: {
-    app: { isProcessing, isUploading, status }
+    app: { hasUploaded, hasInitiated, hasFinished, status }
   },
   services: {
     app: { setVideoBlob, resetStates }
@@ -38,8 +38,8 @@ videoBlob,
           />
       </video>
       {status.length ? <Spinner message={status}/> : null}
-      {isUploading ? <Spinner message={'Uploading Video...'}/> : null}
-      {isProcessing ? <Spinner message={'Processing Video...'}/> : null}
+      {(hasUploaded ? !hasInitiated : hasInitiated) ? <Spinner message={'Uploading Video...'}/> : null}
+      {(hasFinished ? !hasUploaded : hasUploaded) ? <Spinner message={'Processing Video...'}/> : null }
       <ListVideos/>
     </div>
   );

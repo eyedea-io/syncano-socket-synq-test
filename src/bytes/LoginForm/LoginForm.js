@@ -27,8 +27,8 @@ const LoginForm = ({
         <input type={'text'} placeholder={'Login'} required/>
         <input type={'password'} placeholder={'Password'} required/>
         <button type={'submit'}>log in</button>
+        {status.length ? <div className={cn('LoginForm__status')}>{status}</div> : null }
       </form>
-      {status.length ? <div className={cn('LoginForm__status')}>{status}</div> : null }
     </div>
   );
 };

@@ -9,8 +9,12 @@
 		color: #f2f2f2;
 	}
 	&__status {
-		color: indianred;
-    	text-align: center;
+		width: 100%;
+		color: #cd5c5c !important;
+	    background: gainsboro;
+	    text-align: center;
+	    padding: 10px;
+	    margin: 10px auto;
 	}
 	form {
 		display: flex;
@@ -49,6 +53,6 @@
 
 	}
 	& > form > * {
-		color: #F2F2F2 !important;
+		color: #F2F2F2;
 	}
 }
