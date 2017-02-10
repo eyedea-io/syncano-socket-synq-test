@@ -5,7 +5,7 @@ Integration between Syncano and SYNQ (https://www.synq.fm)
 function on_video_update(oldVideo, newVideo) {
 
   // Set the url we want to send the webhook to
-  url = "https://resonance-damp-2382.syncano.link/synq/webhook/"
+  url = "https://" + oldVideo.get("userdata.instance") + ".syncano.link/synq/webhook/"
   var video_url = newVideo.get("input.url");
   var video_embed_url = newVideo.get("player.embed_url");
   var video_state = newVideo.state;

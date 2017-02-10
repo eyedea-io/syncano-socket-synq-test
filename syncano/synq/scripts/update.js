@@ -22,7 +22,8 @@ const updateVideoObject = data => {
 const updateSynq = data => {
   const userData = Object.assign({}, {
     user_key: user.user_key,
-    username: user.username
+    username: user.username,
+    instance: META.instance
   }, postData.payload)
 
   const updateForm = new FormData()
