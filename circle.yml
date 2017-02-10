@@ -30,13 +30,9 @@ deployment:
   staging:
     branch: devel
     commands:
-      - yarn build
+      - cd syncano && yarn install && cd ..
       - syncano-cli sync
-
-test:
-  override:
-    - yarn test:
-        timeout: 400
+      - echo $SYNQ_API_KEY | syncano-cli socket sync synq
 
 experimental:
   notify:
