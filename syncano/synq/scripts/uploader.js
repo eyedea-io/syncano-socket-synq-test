@@ -15,7 +15,8 @@ if( !user.hasOwnProperty('id') ){
 const createForm = new FormData()
 const userData = Object.assign({}, {
   user_key: user.user_key,
-  username: user.username
+  username: user.username,
+  instance: META.instance
 }, postData)
 const uploader = syncanoObject => {
   const updateForm = new FormData()
