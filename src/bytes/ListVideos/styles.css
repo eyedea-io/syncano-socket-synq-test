@@ -1,0 +1,54 @@
+.ListVideos {
+	position: absolute;
+	-moz-position: unset;
+    z-index: 100;
+    width: 100%;
+    bottom: -80px;
+    left: 0px;
+    overflow-y: scroll;
+    min-height: 80px;
+    max-height: 120px;
+    &__video {
+		padding: 5px;
+		background: #0070d3;;
+		border-bottom: 2px solid #2196F3;
+		display: flex;
+	    align-content: center;
+	    justify-content: space-between;
+	}
+	&__url {
+		text-transform: uppercase;
+		
+		a {
+			color: #f2f2f2;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+	&__control {
+		display: flex;
+		&-id {
+		padding: 0px 10px;
+		color: #f2f2f2;
+		background: #0070d3;
+		}
+		&-remove button { 
+			background: #EB5757;
+			color: #f2f2f2;
+			border: none;
+			cursor: pointer;
+		}
+	}
+	&__preview {
+		button {
+			border: none;
+			color: #B2DFDB;
+			background: #2196F3;
+			border-right: 2px solid #0070D3;
+			border-left: 2px solid #0070D3;
+			cursor: pointer;
+		}
+	}
+}
