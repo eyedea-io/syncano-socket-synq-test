@@ -1,7 +1,7 @@
 /* eslint camelcase: ["error", {properties: "never"}] */
 import React, { PropTypes } from 'react';
 import styles from './styles.css';
-import { VideoRecorder, VideoPlayer } from 'bytes';
+import { VideoPlayer, VideoRecorder, VideoUpload } from 'bytes';
 import { connect } from 'utils';
 
 const cn = require('classnames/bind').bind(styles);
@@ -9,7 +9,7 @@ const cn = require('classnames/bind').bind(styles);
 const VideoWrapper = ({
   store: {
     app: {
-      videoSrc, videoBlob, isLoggedIn
+     videoBlob, isLoggedIn
     }
   },
   services: {
@@ -22,8 +22,10 @@ const VideoWrapper = ({
   }
   return (
     <div className={cn('VideoWrapper')}>
-      <VideoRecorder/>
-      <VideoPlayer videoSrc={videoSrc} videoBlob={videoBlob}/>
+      <VideoRecorder>
+        <VideoUpload/>
+      </VideoRecorder>
+      <VideoPlayer videoBlob={videoBlob}/>
     </div>
   );
 };

@@ -138,5 +138,6 @@
       "import/no-unresolved": 0,
       "import/no-unassigned-import": 0
     }
-  }
+  },
+  "homepage": "https://pond-twilight-7631.syncano.site/"
 }
