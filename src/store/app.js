@@ -1,7 +1,6 @@
 import { observable } from 'utils';
 
 export default {
-  @observable videoSrc: [],
   @observable videoBlob: '',
   @observable isRecording: false,
   @observable hasInitiated: false,

@@ -3,8 +3,6 @@ import React, { PropTypes } from 'react';
 import styles from './styles.css';
 import { connect } from 'utils';
 
-const DropZone = require('react-dropzone');
-
 const cn = require('classnames/bind').bind(styles);
 
 const VideoUpload = ({
@@ -12,11 +10,18 @@ const VideoUpload = ({
   app: { sendFile }
 }
 }) => {
+  const send = e => {
+    e.preventDefault();
+    const vd = document.getElementById('vidfile');
+    const file = vd.files[0];
+    vd.value = ''; // reset file value
+    sendFile(file);
+  };
   return (
     <div className={cn('VideoUpload')}>
-      <DropZone onDrop={sendFile} className={cn('VideoUpload__dropzone')}>
-        <div>UPLOAD VIDEO</div>
-      </DropZone>
+      <div className={cn('VideoUpload__dropzone')}>
+        <div><input type="file" id="vidfile" onChange={send}/>UPLOAD VIDEO</div>
+      </div>
     </div>
   );
 };

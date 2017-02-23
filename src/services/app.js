@@ -39,6 +39,8 @@ export default class app {
   @action logOut = () => {
     window.localStorage.clear();
     this.store.app.isLoggedIn = false;
+    this.store.app.status = '';
+    this.store.app.videoBlob = '';
   }
   @action logInUser = status => {
     this.store.app.isLoggedIn = status;
