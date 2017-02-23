@@ -366,10 +366,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+
 attr-accept@^1.0.3:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
-
 autoprefixer@^6.0.2, autoprefixer@^6.3.1, autoprefixer@^6.3.7:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.0.tgz#88992cf04df141e7b8293550f2ee716c565d1cae"
@@ -1255,7 +1255,8 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.1, bluebird@^3.4.7:
+
+bluebird@^3.4.1, bluebird@^3.4.7
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
@@ -5721,6 +5722,7 @@ react-dom@^15.3.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+
 react-dropzone@^3.9.2:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-3.10.0.tgz#d17193f816c038a1c29f1e92411db4a12210f19b"
@@ -6074,6 +6076,7 @@ repeating@^2.0.0:
 req-all@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/req-all/-/req-all-0.1.0.tgz#130051e2ace58a02eacbfc9d448577a736a9273a"
+
 
 request-promise-core@1.1.1:
   version "1.1.1"
