@@ -30,9 +30,11 @@ deployment:
   staging:
     branch: devel
     commands:
+      - yarn build
       - cd syncano && yarn install && cd ..
       - syncano-cli sync
       - echo $SYNQ_API_KEY | syncano-cli socket sync synq
+      - syncano hosting sync staging
 
 experimental:
   notify:
