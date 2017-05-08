@@ -56,7 +56,7 @@ export default class app {
     this.store.app.status = '';
   }
   @action logIn = (username, password) => {
-    const url = `${SYNCANO_BASE_URL}/synq/login_or_signup/`;
+    const url = `${SYNCANO_BASE_URL}/login-or-signup/login-or-signup/`;
     const form = new FormData();
     form.append('username', username);
     form.append('password', password);

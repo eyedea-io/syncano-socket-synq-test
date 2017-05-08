@@ -1,7 +1,7 @@
 // This script is only simple example for testing purposes only. It should be replaced with proper authentication script or socket.
 import fetch from 'node-fetch'
-import db from '../helpers/db'
-import respond from '../helpers/respond'
+import {users, data, response} from 'syncano-server'
+
 
 const { username, password } = ARGS.POST
 
@@ -12,9 +12,9 @@ const createUser = () => {
     password
   }
 
-  db.users.create(user)
-  .then(res => respond.json({token: res.user_key, username: res.username}))
-  .catch(err => respond.error(err))
+users.create(user)
+  .then(res => response.json({token: res.user_key, username: res.username}))
+  .catch(err => response.error(err))
 }
 
 const authenticateUser = () => {
@@ -31,14 +31,14 @@ const authenticateUser = () => {
     }
   })
   .then(res => res.json())
-  .then(json => respond.json({token: json.user_key, username: json.username}))
+  .then(json => response.json({token: json.user_key, username: json.username}))
   .catch(({ response: err }) => {
-    err.json().then(json => respond.error(json))
+    err.json().then(json => response.error(json))
   })
 }
 
-db.users
-.where('username', 'eq', username)
-.firstOrFail()
-.then(authenticateUser)
-.catch(createUser)
+users
+  .where('username', 'eq', username)
+  .firstOrFail()
+  .then(authenticateUser)
+  .catch(createUser)

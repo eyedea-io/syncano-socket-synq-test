@@ -1,0 +1,32 @@
+name: login-or-signup
+description: Login or Signup ;)
+
+endpoints:
+  login-or-signup:
+    description: Simple script used to login or signup user to Syncano
+    file: scripts/login-or-signup.js
+    parameters:
+      username:
+        type: string
+        description: User name
+        example: "joe"
+      password:
+        type: string
+        description: User password
+        example: "super-sercret-password"
+    response:
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              token: "cb21ff98ac8c7dda8fcd0129b0adb0254dea5c8e",
+              username: "u"
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {}
