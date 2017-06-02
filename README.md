@@ -1,4 +1,6 @@
 # syncano-socket-synq example
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/eyedea-io/syncano-socket-synq-test.svg)](https://greenkeeper.io/)
 Integration between Syncano and SYNQ (https://www.synq.fm)
 
 ```js
