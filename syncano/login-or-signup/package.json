@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "node-fetch": "^1.6.3",
+    "node-fetch": "^3.2.10",
     "syncano-server": "^0.8.1"
   }
 }
